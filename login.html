@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robots Autónomos - Acceso Inversores</title>
+    <title>Robots Autónomos - Acceso privado</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -91,26 +91,26 @@
 </head>
 <body>
     <div class="login-container">
-        <h1>🔐 Acceso Inversores</h1>
-        <p class="subtitle">Robots Autónomos - Dashboard Privado</p>
+        <h1>Acceso privado</h1>
+        <p class="subtitle">Robots Autónomos, área reservada para inversores y seguimiento operativo</p>
         
-        <div class="error" id="error">Contraseña incorrecta</div>
+        <div class="error" id="error">Clave de acceso no válida</div>
         
         <form id="loginForm">
             <div class="input-group">
-                <label for="password">Contraseña de inversor</label>
-                <input type="password" id="password" placeholder="Introduce tu contraseña" autofocus>
+                <label for="password">Clave de acceso</label>
+                <input type="password" id="password" placeholder="Introduzca su clave" autofocus>
             </div>
-            <button type="submit">Acceder al Dashboard</button>
+            <button type="submit">Entrar al área privada</button>
         </form>
         
         <div class="back-link">
-            <a href="public.html">← Volver a la página pública</a>
+            <a href="public.html">← Volver a la página informativa</a>
         </div>
     </div>
 
     <script>
-        // Contraseña simple (se puede cambiar aquí)
+        // Clave de acceso privada
         const PASSWORD = "robots2026";
         
         // Redirigir si ya está logueado
