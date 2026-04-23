@@ -91,30 +91,45 @@
         }
         .hero-visual {
             position: relative;
-            min-height: 280px;
-            border-radius: 24px;
+            min-height: 360px;
+            border-radius: 28px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.10);
-            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+                radial-gradient(circle at center, rgba(59,130,246,0.16), transparent 58%);
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 24px 44px rgba(2,6,23,0.3);
         }
         .hero-visual::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(59,130,246,0.20), transparent 60%);
+            inset: 10% 14%;
+            border-radius: 50%;
+            border: 1px solid rgba(147,197,253,0.18);
+            box-shadow: 0 0 0 22px rgba(59,130,246,0.05), 0 0 0 48px rgba(34,197,94,0.03);
+            pointer-events: none;
+        }
+        .hero-visual::after {
+            content: '';
+            position: absolute;
+            inset: auto 12% 8% 12%;
+            height: 76px;
+            background: radial-gradient(circle, rgba(96,165,250,0.20), transparent 70%);
+            filter: blur(14px);
             pointer-events: none;
         }
         .hero-visual img {
-            width: 100%;
-            height: 100%;
+            width: min(100%, 380px);
+            max-height: 90%;
             object-fit: contain;
             position: relative;
             z-index: 1;
             display: block;
-            filter: drop-shadow(0 20px 34px rgba(0,0,0,0.45));
+            filter: drop-shadow(0 24px 42px rgba(0,0,0,0.45));
+            transform: translateY(6px);
         }
         .hero-visual.missing img { display: none; }
         .hero-fallback {
@@ -122,8 +137,13 @@
             position: relative;
             z-index: 1;
             text-align: center;
-            max-width: 240px;
+            max-width: 260px;
             color: #dbeafe;
+            padding: 1.35rem;
+            border-radius: 20px;
+            background: rgba(2,6,23,0.34);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
         }
         .hero-visual.missing .hero-fallback { display: block; }
         .hero-fallback strong {
@@ -451,7 +471,7 @@
                     <img id="lolibotPrivateImage" src="assets/lolibot.png" alt="Lolibot, referencia visual del proyecto">
                     <div class="hero-fallback">
                         <strong>Lolibot pendiente de integrar</strong>
-                        <span>La tarjeta visual quedará activa automáticamente cuando exista <code>assets/lolibot.png</code>.</span>
+                        <span>La tarjeta premium se activará automáticamente cuando exista <code>assets/lolibot.png</code>.</span>
                     </div>
                 </aside>
             </div>

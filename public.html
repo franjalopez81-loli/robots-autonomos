@@ -100,6 +100,8 @@
             border-radius: 28px;
             padding: 3rem;
             background:
+                radial-gradient(circle at 20% 20%, rgba(124,58,237,0.22), transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(37,99,235,0.18), transparent 35%),
                 linear-gradient(135deg, rgba(124,58,237,0.22), rgba(37,99,235,0.14)),
                 rgba(15,23,42,0.65);
             box-shadow: 0 24px 80px rgba(2,6,23,0.5);
@@ -108,45 +110,74 @@
             gap: 2rem;
             align-items: center;
         }
+        .hero-box::after {
+            content: '';
+            position: absolute;
+            inset: auto -10% -30% 35%;
+            height: 340px;
+            background: radial-gradient(circle, rgba(124,58,237,0.24), transparent 60%);
+            pointer-events: none;
+            filter: blur(18px);
+        }
         .hero-copy {
             position: relative;
             z-index: 1;
         }
         .hero-visual {
             position: relative;
-            min-height: 420px;
-            border-radius: 24px;
+            min-height: 480px;
+            border-radius: 28px;
             border: 1px solid rgba(255,255,255,0.10);
-            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+                radial-gradient(circle at center, rgba(124,58,237,0.16), transparent 55%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 30px 60px rgba(2,6,23,0.35);
         }
         .hero-visual::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(124,58,237,0.25), transparent 60%);
+            inset: 7% 12%;
+            border-radius: 50%;
+            border: 1px solid rgba(196,181,253,0.18);
+            box-shadow: 0 0 0 26px rgba(124,58,237,0.05), 0 0 0 56px rgba(37,99,235,0.04);
+            pointer-events: none;
+        }
+        .hero-visual::after {
+            content: '';
+            position: absolute;
+            inset: auto 10% 6% 10%;
+            height: 90px;
+            background: radial-gradient(circle, rgba(96,165,250,0.22), transparent 70%);
+            filter: blur(14px);
             pointer-events: none;
         }
         .hero-portrait {
-            width: 100%;
-            height: 100%;
+            width: min(100%, 560px);
+            max-height: 92%;
             object-fit: contain;
             display: block;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 22px 44px rgba(0,0,0,0.45));
+            filter: drop-shadow(0 26px 54px rgba(0,0,0,0.48));
+            transform: translateY(8px);
         }
         .hero-visual.missing .hero-portrait { display: none; }
         .asset-missing {
             display: none;
             position: relative;
             z-index: 1;
-            max-width: 280px;
+            max-width: 320px;
             text-align: center;
             color: #dbe4ff;
+            padding: 1.5rem;
+            border-radius: 22px;
+            background: rgba(2,6,23,0.36);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
         }
         .hero-visual.missing .asset-missing { display: block; }
         .asset-missing strong {
@@ -367,7 +398,7 @@
             <div class="hero-box">
                 <div class="hero-copy">
                     <div class="eyebrow">Proyecto open source, visión industrial</div>
-                    <h1>Robótica física con una identidad de producto reconocible</h1>
+                    <h1>Robótica física con una presencia de marca que sí se recuerda</h1>
                     <p id="projectTagline" class="loading">Cargando información del proyecto...</p>
                     <div class="hero-actions">
                         <a class="btn btn-primary" href="#niveles">Ver niveles de inversión</a>
@@ -381,7 +412,7 @@
                         <strong>Espacio reservado para Lolibot</strong>
                         <span>En cuanto el archivo final esté en <code>assets/lolibot.png</code>, esta zona mostrará la imagen principal del proyecto.</span>
                     </div>
-                    <div class="hero-badge">Lolibot, identidad visual del proyecto</div>
+                    <div class="hero-badge">Lolibot, identidad visual principal</div>
                 </div>
             </div>
         </section>
