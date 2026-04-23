@@ -156,14 +156,25 @@
             pointer-events: none;
         }
         .hero-portrait {
-            width: min(100%, 560px);
-            max-height: 92%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 18%;
             display: block;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 26px 54px rgba(0,0,0,0.48));
-            transform: translateY(8px);
+            filter: saturate(1.05) contrast(1.02) drop-shadow(0 26px 54px rgba(0,0,0,0.48));
+            transform: scale(1.16);
+        }
+        .hero-visual-glow {
+            position: absolute;
+            inset: auto 12% 10% 12%;
+            height: 120px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(34,211,238,0.20), transparent 68%);
+            filter: blur(18px);
+            z-index: 0;
+            pointer-events: none;
         }
         .hero-visual.missing .hero-portrait { display: none; }
         .asset-missing {
@@ -407,12 +418,13 @@
                     <div class="hero-note">Esta página está pensada para visitantes e interesados. El área privada ofrece seguimiento operativo y datos de aportación.</div>
                 </div>
                 <div class="hero-visual missing" id="lolibotHero">
+                    <div class="hero-visual-glow"></div>
                     <img class="hero-portrait" id="lolibotImage" src="assets/lolibot.png" alt="Lolibot, identidad visual del proyecto">
                     <div class="asset-missing">
                         <strong>Espacio reservado para Lolibot</strong>
                         <span>En cuanto el archivo final esté en <code>assets/lolibot.png</code>, esta zona mostrará la imagen principal del proyecto.</span>
                     </div>
-                    <div class="hero-badge">Lolibot, identidad visual principal</div>
+                    <div class="hero-badge">Lolibot, avatar central y sistema expresivo</div>
                 </div>
             </div>
         </section>

@@ -122,14 +122,35 @@
             pointer-events: none;
         }
         .hero-visual img {
-            width: min(100%, 380px);
-            max-height: 90%;
+            width: min(100%, 500px);
+            max-height: 92%;
             object-fit: contain;
             position: relative;
             z-index: 1;
             display: block;
-            filter: drop-shadow(0 24px 42px rgba(0,0,0,0.45));
+            filter: saturate(1.04) contrast(1.02) drop-shadow(0 24px 42px rgba(0,0,0,0.45));
             transform: translateY(6px);
+        }
+        .hero-visual-note {
+            position: absolute;
+            left: 1rem;
+            right: 1rem;
+            bottom: 1rem;
+            z-index: 2;
+            padding: 0.8rem 0.95rem;
+            border-radius: 16px;
+            background: rgba(2,6,23,0.62);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+        }
+        .hero-visual-note strong {
+            display: block;
+            font-size: 0.92rem;
+            margin-bottom: 0.15rem;
+        }
+        .hero-visual-note span {
+            color: var(--muted);
+            font-size: 0.8rem;
         }
         .hero-visual.missing img { display: none; }
         .hero-fallback {
@@ -472,6 +493,10 @@
                     <div class="hero-fallback">
                         <strong>Lolibot pendiente de integrar</strong>
                         <span>La tarjeta premium se activará automáticamente cuando exista <code>assets/lolibot.png</code>.</span>
+                    </div>
+                    <div class="hero-visual-note">
+                        <strong>Lolibot concept board</strong>
+                        <span>Base visual con expresiones para la identidad del producto y futuras pantallas.</span>
                     </div>
                 </aside>
             </div>
