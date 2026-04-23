@@ -5,128 +5,222 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robots Autónomos - Acceso privado</title>
     <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1d4ed8;
+            --bg: #07101d;
+            --panel: rgba(15, 23, 42, 0.90);
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --line: rgba(255,255,255,0.10);
+            --danger: #ef4444;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #f1f5f9;
+            font-family: Inter, system-ui, -apple-system, sans-serif;
             min-height: 100vh;
+            color: var(--text);
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(37,99,235,0.18), transparent 25%),
+                radial-gradient(circle at 80% 0%, rgba(59,130,246,0.12), transparent 20%),
+                linear-gradient(rgba(7,16,29,0.82), rgba(7,16,29,0.94)),
+                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80') center/cover fixed;
+            padding: 1rem;
+        }
+        .layout {
+            width: min(960px, 100%);
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            background: rgba(2, 6, 23, 0.56);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(2,6,23,0.48);
+            backdrop-filter: blur(14px);
+        }
+        .info, .form-panel { padding: 2.2rem; }
+        .info {
+            background: linear-gradient(180deg, rgba(37,99,235,0.14), rgba(15,23,42,0.26));
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .brand {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.9rem;
         }
-        .login-container {
-            background: #1e293b;
+        .brand-mark {
+            width: 48px;
+            height: 48px;
             border-radius: 16px;
-            padding: 3rem;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            font-weight: 800;
+        }
+        .eyebrow {
+            display: inline-flex;
+            padding: 0.38rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            color: #bfdbfe;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
         h1 {
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-size: 1.75rem;
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            margin-bottom: 0.9rem;
         }
-        .subtitle {
-            text-align: center;
-            color: #94a3b8;
-            margin-bottom: 2rem;
-            font-size: 0.875rem;
+        .lead { color: #dbeafe; max-width: 36ch; }
+        .bullet-list {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+            color: #dbeafe;
         }
-        .input-group { margin-bottom: 1.5rem; }
+        .bullet-list li::before { content: '• '; color: #60a5fa; font-weight: 800; }
+        .form-panel {
+            display: flex;
+            align-items: center;
+        }
+        .card {
+            width: 100%;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 1.75rem;
+        }
+        .card h2 { margin-bottom: 0.4rem; }
+        .subtitle { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .error {
+            background: rgba(239,68,68,0.12);
+            color: #fecaca;
+            border: 1px solid rgba(239,68,68,0.22);
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .input-group { margin-bottom: 1rem; }
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #94a3b8;
-            font-size: 0.875rem;
+            margin-bottom: 0.45rem;
+            color: var(--muted);
+            font-size: 0.9rem;
         }
         input {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #334155;
-            border-radius: 8px;
-            background: #0f172a;
-            color: #f1f5f9;
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(2,6,23,0.55);
+            color: white;
             font-size: 1rem;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: rgba(96,165,250,0.6);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
         }
-        button {
+        .submit-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        button:hover { transform: translateY(-2px); }
-        .error {
-            background: #ef4444;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            text-align: center;
-            display: none;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s ease;
         }
-        .back-link {
+        .submit-btn:hover { transform: translateY(-2px); }
+        .links {
+            margin-top: 1rem;
+            display: grid;
+            gap: 0.65rem;
             text-align: center;
-            margin-top: 1.5rem;
         }
-        .back-link a {
-            color: #667eea;
+        .links a {
+            color: #93c5fd;
             text-decoration: none;
-            font-size: 0.875rem;
+            font-size: 0.92rem;
         }
-        .back-link a:hover { text-decoration: underline; }
+        .links a:hover { text-decoration: underline; }
+        @media (max-width: 860px) {
+            .layout { grid-template-columns: 1fr; }
+            .info { border-right: none; border-bottom: 1px solid var(--line); }
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Acceso privado</h1>
-        <p class="subtitle">Robots Autónomos, área reservada para inversores y seguimiento operativo</p>
-        
-        <div class="error" id="error">Clave de acceso no válida</div>
-        
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="password">Clave de acceso</label>
-                <input type="password" id="password" placeholder="Introduzca su clave" autofocus>
+    <div class="layout">
+        <section class="info">
+            <div>
+                <div class="brand">
+                    <div class="brand-mark">RA</div>
+                    <div>
+                        <strong>Robots Autónomos</strong><br>
+                        <span style="color:var(--muted); font-size:0.9rem;">Acceso reservado para inversores</span>
+                    </div>
+                </div>
             </div>
-            <button type="submit">Entrar al área privada</button>
-        </form>
-        
-        <div class="back-link">
-            <a href="public.html">← Volver a la página informativa</a>
-        </div>
+            <div>
+                <div class="eyebrow">Entorno privado</div>
+                <h1>Entra al panel operativo</h1>
+                <p class="lead">Esta vista separa claramente al visitante del inversor. Aquí el foco pasa de presentación a seguimiento real.</p>
+            </div>
+            <ul class="bullet-list">
+                <li>Métricas de financiación</li>
+                <li>Estructura de participación</li>
+                <li>Carteras de aportación y QR</li>
+            </ul>
+        </section>
+
+        <section class="form-panel">
+            <div class="card">
+                <h2>Acceso privado</h2>
+                <p class="subtitle">Introduce tu clave para entrar al dashboard de inversores.</p>
+                <div class="error" id="error">Clave de acceso no válida.</div>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="password">Clave de acceso</label>
+                        <input type="password" id="password" placeholder="Introduce tu clave" autocomplete="current-password" autofocus>
+                    </div>
+                    <button class="submit-btn" type="submit">Entrar al área privada</button>
+                </form>
+                <div class="links">
+                    <a href="public.html">← Volver a la página pública</a>
+                    <a href="mailto:franjalopez81@gmail.com?subject=Consulta%20-%20Robots%20Autonomos">Necesito ayuda de acceso</a>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>
-        // Clave de acceso privada
-        const PASSWORD = "robots2026";
-        
-        // Redirigir si ya está logueado
+        const PASSWORD = 'robots2026';
+
         if (sessionStorage.getItem('authenticated') === 'true') {
             window.location.href = 'index.html';
         }
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const password = document.getElementById('password').value;
-            
+            const error = document.getElementById('error');
+
             if (password === PASSWORD) {
                 sessionStorage.setItem('authenticated', 'true');
                 window.location.href = 'index.html';
             } else {
-                document.getElementById('error').style.display = 'block';
+                error.style.display = 'block';
             }
         });
     </script>

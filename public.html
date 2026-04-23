@@ -6,486 +6,425 @@
     <title>Robots Autónomos - Proyecto Open Source</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #48bb78;
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
+            --primary: #7c3aed;
+            --secondary: #2563eb;
+            --accent: #22c55e;
+            --bg: #081124;
+            --card: rgba(15, 23, 42, 0.78);
+            --text: #eef2ff;
+            --muted: #a5b4fc;
+            --line: rgba(255,255,255,0.10);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: 
-                linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(30,41,59,0.88) 100%),
-                url('https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=1920&q=80') center/cover fixed,
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(102,126,234,0.08) 2px, rgba(102,126,234,0.08) 4px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(102,126,234,0.08) 2px, rgba(102,126,234,0.08) 4px);
-            background-size: cover, 100% 100%, 50px 50px, 50px 50px;
-            color: var(--text);
-            line-height: 1.6;
+            font-family: Inter, system-ui, -apple-system, sans-serif;
             min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(124,58,237,0.35), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(37,99,235,0.28), transparent 35%),
+                linear-gradient(160deg, #050b16 0%, #0b1327 45%, #111c36 100%);
+            line-height: 1.6;
         }
-        body::before {
-            content: '';
-            position: fixed;
+        a { color: inherit; }
+        .container { max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
+        .topbar {
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(102,126,234,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(118,75,162,0.15) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
+            z-index: 20;
+            backdrop-filter: blur(14px);
+            background: rgba(5, 11, 22, 0.72);
+            border-bottom: 1px solid var(--line);
         }
-        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
-        
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, rgba(102,126,234,0.95) 0%, rgba(118,75,162,0.95) 100%);
-            border-radius: 20px;
-            margin-bottom: 3rem;
-            box-shadow: 0 20px 60px rgba(102,126,234,0.3);
-            position: relative;
-            overflow: hidden;
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 0;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 8s ease-in-out infinite;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-        .hero h1 { 
-            font-size: 3.5rem; 
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        .hero p { 
-            font-size: 1.3rem; 
-            opacity: 0.95; 
-            max-width: 650px; 
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Progress */
-        .progress-section {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .progress-section h2 { 
-            margin-bottom: 2rem; 
-            text-align: center;
-            font-size: 1.8rem;
-        }
-        .progress-item { margin-bottom: 2rem; }
-        .progress-label { 
-            display: flex; 
-            justify-content: space-between; 
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-        .progress-bar { 
-            background: rgba(0,0,0,0.4); 
-            border-radius: 10px; 
-            height: 20px; 
-            overflow: hidden;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
-        }
-        .progress-fill { 
-            height: 100%; 
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
-            border-radius: 10px;
-            transition: width 0.5s ease;
-            position: relative;
-        }
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        .progress-fill.green { background: linear-gradient(90deg, #48bb78, #38a169); }
-        
-        /* Stats */
-        .stats-grid {
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(102,126,234,0.2);
-        }
-        .stat-value { 
-            font-size: 2.8rem; 
-            font-weight: 700; 
+            place-items: center;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            box-shadow: 0 10px 30px rgba(37,99,235,0.25);
         }
-        .stat-label { 
-            color: var(--muted); 
-            text-transform: uppercase; 
-            font-size: 0.8rem; 
-            margin-top: 0.75rem;
-            letter-spacing: 0.1em;
+        .brand-text strong { display: block; font-size: 0.98rem; }
+        .brand-text span { color: var(--muted); font-size: 0.82rem; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
-        
-        /* Tiers */
-        .tiers-section { margin-bottom: 2rem; }
-        .tiers-section h2 { 
-            text-align: center; 
-            margin-bottom: 2.5rem;
-            font-size: 2rem;
+        .nav-link, .btn {
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 0.8rem 1.15rem;
+            font-weight: 700;
+            transition: 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .nav-link { color: var(--muted); }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.05); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 14px 34px rgba(124,58,237,0.28);
+        }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-outline {
+            border-color: rgba(165,180,252,0.24);
+            color: white;
+            background: rgba(255,255,255,0.04);
+        }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.08); }
+        .hero {
+            padding: 5rem 0 3rem;
+        }
+        .hero-box {
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 3rem;
+            background:
+                linear-gradient(135deg, rgba(124,58,237,0.22), rgba(37,99,235,0.14)),
+                rgba(15,23,42,0.65);
+            box-shadow: 0 24px 80px rgba(2,6,23,0.5);
         }
-        .tiers-section h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+        .eyebrow {
+            display: inline-flex;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.07);
+            color: #c4b5fd;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 1.1rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            max-width: 760px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #dbe4ff;
+            max-width: 760px;
+        }
+        .hero-actions {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .hero-note {
+            margin-top: 1rem;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .stats-grid, .milestones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .section { margin: 0 0 2rem; }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 1.5rem;
+            box-shadow: 0 14px 40px rgba(2,6,23,0.28);
+            backdrop-filter: blur(10px);
+        }
+        .stat-value {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+        .stat-label {
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.76rem;
+            color: var(--muted);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .section-copy {
+            color: #c7d2fe;
+            margin-bottom: 1.5rem;
+            max-width: 760px;
+        }
+        .progress-card {
+            background: linear-gradient(180deg, rgba(15,23,42,0.82), rgba(15,23,42,0.68));
+        }
+        .progress-item + .progress-item { margin-top: 1.2rem; }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 14px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            border-radius: inherit;
+            transition: width 0.7s ease;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
+        }
+        .progress-fill.green {
+            background: linear-gradient(90deg, #16a34a, #22c55e);
+        }
+        .tiers-grid {
+            display: grid;
+            gap: 1rem;
         }
         .tier-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 1.25rem;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .tier-card:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 32px rgba(102,126,234,0.25);
-        }
-        .tier-card.partner { border-left-color: #f59e0b; }
-        .tier-card.cofounder { 
-            border-left-color: #ec4899;
-            background: linear-gradient(135deg, rgba(236,72,153,0.08), rgba(30,41,59,0.95));
-        }
-        .tier-name { 
-            font-size: 1.6rem; 
-            font-weight: 700; 
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-        .tier-range { 
-            color: var(--primary); 
-            font-weight: 600; 
-            font-size: 1rem;
-            margin-bottom: 1.25rem;
-            display: inline-block;
-            background: rgba(102,126,234,0.15);
-            padding: 0.25rem 0.75rem;
-            border-radius: 6px;
-        }
-        .tier-benefits { list-style: none; }
-        .tier-benefits li { 
-            padding: 0.5rem 0;
-            font-size: 0.95rem;
-        }
-        .tier-benefits li:before { 
-            content: "✓ "; 
-            color: var(--accent);
-            font-weight: bold;
-        }
-        
-        /* CTA */
-        .cta-section {
-            text-align: center;
-            padding: 4rem 3rem;
-            background: linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.95));
-            border-radius: 20px;
-            margin-top: 3rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .cta-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .cta-buttons { 
-            display: flex; 
-            gap: 1.5rem; 
-            justify-content: center; 
-            flex-wrap: wrap; 
-            margin-top: 2rem;
-        }
-        .btn {
-            display: inline-block;
-            padding: 1.25rem 2.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.05rem;
-            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .tier-card.partner { border-color: rgba(245,158,11,0.35); }
+        .tier-card.cofounder { border-color: rgba(236,72,153,0.35); }
+        .tier-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
         }
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .tier-name { font-size: 1.25rem; font-weight: 800; }
+        .tier-range {
+            display: inline-block;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.07);
+            color: #ddd6fe;
+            font-weight: 700;
+            font-size: 0.88rem;
         }
-        .btn:hover { 
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        .tier-benefits {
+            list-style: none;
+            display: grid;
+            gap: 0.45rem;
+            color: #dbe4ff;
         }
-        .btn-primary { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: white;
-            box-shadow: 0 4px 20px rgba(102,126,234,0.4);
+        .tier-benefits li::before {
+            content: "✓ ";
+            color: var(--accent);
+            font-weight: 800;
         }
-        .btn-success { 
-            background: linear-gradient(135deg, #48bb78, #38a169); 
-            color: white;
-            box-shadow: 0 4px 20px rgba(72,187,120,0.4);
-        }
-        .btn-outline { 
-            border: 2px solid var(--primary); 
-            color: var(--primary); 
-            background: transparent;
-        }
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* Footer */
-        footer {
+        .cta {
             text-align: center;
-            padding: 2rem;
-            color: var(--muted);
-            margin-top: 2rem;
+            padding: 2.8rem;
+            background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(37,99,235,0.12));
         }
-        
-        /* Login hint */
-        .login-hint {
+        .cta p { color: #dbe4ff; margin-top: 0.7rem; }
+        .cta-buttons {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer {
+            padding: 2.5rem 0 3rem;
+            color: var(--muted);
             text-align: center;
-            padding: 1rem;
-            color: var(--muted);
-            font-size: 0.875rem;
+            font-size: 0.92rem;
         }
-        .login-hint a { color: var(--primary); text-decoration: none; }
+        .loading {
+            opacity: 0.6;
+            animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.55; }
+            50% { opacity: 1; }
+        }
+        @media (max-width: 720px) {
+            .hero-box, .card { padding: 1.25rem; }
+            .hero { padding-top: 2.5rem; }
+            .nav { align-items: flex-start; flex-direction: column; }
+            .nav-links { width: 100%; }
+            .nav-link, .btn { width: 100%; text-align: center; }
+            .progress-label { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Hero -->
-        <div class="hero">
-            <h1>Robots Autónomos</h1>
-            <p>Plataforma de desarrollo de robótica física con enfoque open source, orientada a producto, ejecución técnica y escalado industrial.</p>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value" id="totalRaised">$0</div>
-                <div class="stat-label">Recaudado</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="investors">0</div>
-                <div class="stat-label">Inversores</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="milestone">Tokens</div>
-                <div class="stat-label">Próximo</div>
+    <div class="topbar">
+        <div class="container nav">
+            <a class="brand" href="public.html">
+                <div class="brand-mark">RA</div>
+                <div class="brand-text">
+                    <strong>Robots Autónomos</strong>
+                    <span>Vista pública del proyecto</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a class="nav-link" href="#progreso">Progreso</a>
+                <a class="nav-link" href="#niveles">Niveles</a>
+                <a class="btn btn-outline" href="mailto:franjalopez81@gmail.com?subject=Consulta%20-%20Robots%20Autonomos">Contacto</a>
+                <a class="btn btn-primary" href="login.html">Acceso inversores</a>
             </div>
         </div>
+    </div>
 
-        <!-- Progress -->
-        <div class="progress-section">
-            <h2>Progreso de financiación</h2>
+    <main class="container">
+        <section class="hero">
+            <div class="hero-box">
+                <div class="eyebrow">Proyecto open source, visión industrial</div>
+                <h1>Robótica física con ambición de producto real</h1>
+                <p id="projectTagline" class="loading">Cargando información del proyecto...</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#niveles">Ver niveles de inversión</a>
+                    <a class="btn btn-outline" href="mailto:franjalopez81@gmail.com?subject=Solicitud%20de%20informacion%20-%20Robots%20Autonomos">Solicitar información</a>
+                </div>
+                <div class="hero-note">Esta página está pensada para visitantes e interesados. El área privada ofrece seguimiento operativo y datos de aportación.</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="stats-grid">
+                <article class="card">
+                    <div class="stat-value loading" id="totalRaised">$0</div>
+                    <div class="stat-label">Capital captado</div>
+                </article>
+                <article class="card">
+                    <div class="stat-value loading" id="investors">0</div>
+                    <div class="stat-label">Inversores activos</div>
+                </article>
+                <article class="card">
+                    <div class="stat-value loading" id="milestone">Fase</div>
+                    <div class="stat-label">Próximo hito</div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section card progress-card" id="progreso">
+            <h2 class="section-title">Progreso de financiación</h2>
+            <p class="section-copy">Seguimiento general para entender dónde está el proyecto y qué desbloquea cada fase.</p>
             <div class="progress-item">
                 <div class="progress-label">
                     <span>Fase 1, estructuración del token</span>
-                    <span id="tokensText">$0 / $50,000</span>
+                    <span id="tokensText" class="loading">$0 / $50,000</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="tokensBar" style="width: 0%"></div>
-                </div>
+                <div class="progress-bar"><div class="progress-fill" id="tokensBar"></div></div>
             </div>
             <div class="progress-item">
                 <div class="progress-label">
                     <span>Fase 2, despliegue de robots físicos</span>
-                    <span id="robotsText">$0 / $100,000</span>
+                    <span id="robotsText" class="loading">$0 / $100,000</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill green" id="robotsBar" style="width: 0%"></div>
-                </div>
+                <div class="progress-bar"><div class="progress-fill green" id="robotsBar"></div></div>
             </div>
-        </div>
+        </section>
 
-        <!-- Tiers -->
-        <div class="tiers-section">
-            <h2>Niveles de Inversión</h2>
-            
-            <div class="tier-card">
-                <div class="tier-name">Support</div>
-                <div class="tier-range">$0 - $99 USD</div>
-                <ul class="tier-benefits">
-                    <li>Reconocimiento como colaborador inicial</li>
-                    <li>Actualizaciones periódicas del avance</li>
-                    <li>Seguimiento público del proyecto</li>
-                </ul>
-            </div>
+        <section class="section" id="niveles">
+            <h2 class="section-title">Niveles de inversión</h2>
+            <p class="section-copy">Estructura pensada para diferenciar apoyo temprano, participación privada y perfiles estratégicos.</p>
+            <div class="tiers-grid" id="tiersContainer"></div>
+        </section>
 
-            <div class="tier-card">
-                <div class="tier-name">Seed Backer</div>
-                <div class="tier-range">$100 - $499 USD</div>
-                <ul class="tier-benefits">
-                    <li>Incluye todas las ventajas del nivel Support</li>
-                    <li>Acceso anticipado a versiones beta</li>
-                    <li>Condiciones preferentes en primeras unidades</li>
-                    <li>Participación consultiva en decisiones no estratégicas</li>
-                </ul>
-            </div>
-
-            <div class="tier-card">
-                <div class="tier-name">Private Investor</div>
-                <div class="tier-range">$500 - $4,999 USD</div>
-                <ul class="tier-benefits">
-                    <li>Incluye todas las ventajas del nivel Seed Backer</li>
-                    <li>Participación en ingresos del 2%</li>
-                    <li>Asignación de tokens del proyecto, si aplica</li>
-                    <li>Participación consultiva en decisiones operativas</li>
-                    <li>Reportes trimestrales de evolución</li>
-                </ul>
-            </div>
-
-            <div class="tier-card partner">
-                <div class="tier-name">Strategic Partner</div>
-                <div class="tier-range">$5,000 - $24,999 USD</div>
-                <ul class="tier-benefits">
-                    <li>Incluye todas las ventajas del nivel Private Investor</li>
-                    <li>Participación en ingresos del 5%</li>
-                    <li>Equity estimado entre 0.5% y 1%, sujeto a acuerdo</li>
-                    <li>Asignación prioritaria de una unidad física</li>
-                    <li>Reportes mensuales de ejecución y métricas</li>
-                </ul>
-            </div>
-
-            <div class="tier-card cofounder">
-                <div class="tier-name">Lead Investor</div>
-                <div class="tier-range">$25,000+ USD</div>
-                <ul class="tier-benefits">
-                    <li>Incluye todas las ventajas del nivel Strategic Partner</li>
-                    <li>Participación en ingresos del 10%</li>
-                    <li>Equity estimado entre 2% y 5%, sujeto a negociación</li>
-                    <li>Posición de observador en seguimiento estratégico</li>
-                    <li>Condiciones preferentes en acuerdos de lanzamiento</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="cta-section">
-            <h2>Acceso a información y contacto</h2>
-            <p style="color: var(--muted); margin-top: 0.5rem;">Si desea analizar la oportunidad, puede solicitar información adicional o iniciar contacto directo.</p>
+        <section class="section card cta">
+            <h2 class="section-title">¿Quieres revisar la oportunidad con calma?</h2>
+            <p>Puedes pedir más contexto ahora y, si avanzamos, tendrás acceso al panel privado con métricas y carteras de aportación.</p>
             <div class="cta-buttons">
-                <a href="mailto:franjalopez81@gmail.com?subject=Solicitud%20de%20informacion%20-%20Robots%20Autonomos" class="btn btn-success">
-                    Solicitar información
-                </a>
-                <a href="mailto:franjalopez81@gmail.com?subject=Consulta%20-%20Robots%20Autonomos" class="btn btn-outline">
-                    Contacto directo
-                </a>
+                <a class="btn btn-primary" id="infoLink" href="#">Solicitar información</a>
+                <a class="btn btn-outline" id="contactLink" href="#">Contacto directo</a>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <!-- Login hint -->
-        <div class="login-hint">
-            ¿Ya dispone de acceso? <a href="index.html">Entrar al área privada</a>
-        </div>
-
-        <footer>
-            <p>Robots Autónomos</p>
-            <p style="margin-top: 0.5rem;">Desarrollo robótico, financiación privada y ejecución técnica</p>
-        </footer>
-    </div>
+    <footer class="footer container">
+        <p><strong>Robots Autónomos</strong>, página pública para presentación y captación.</p>
+        <p style="margin-top:0.35rem;">Si ya eres inversor, entra en el área privada para ver seguimiento operativo.</p>
+    </footer>
 
     <script>
-        // Datos estáticos - se actualizarían desde un JSON
-        const data = {
-            totalRaisedUSD: 12032,
-            totalInvestors: 7
-        };
+        const fmtUSD = value => '$' + Number(value).toLocaleString('es-ES') + ' USD';
 
-        function updatePage() {
-            document.getElementById('totalRaised').textContent = '$' + data.totalRaisedUSD.toLocaleString();
-            document.getElementById('investors').textContent = data.totalInvestors;
-            
-            const tokensPct = Math.min(100, (data.totalRaisedUSD / 50000) * 100);
-            const robotsPct = Math.min(100, (data.totalRaisedUSD / 100000) * 100);
-            
-            document.getElementById('tokensBar').style.width = tokensPct + '%';
-            document.getElementById('tokensText').textContent = '$' + data.totalRaisedUSD.toLocaleString() + ' / $50,000';
-            
-            document.getElementById('robotsBar').style.width = robotsPct + '%';
-            document.getElementById('robotsText').textContent = '$' + data.totalRaisedUSD.toLocaleString() + ' / $100,000';
-            
-            document.getElementById('milestone').textContent = data.totalRaisedUSD >= 50000 ? 'Despliegue' : 'Token';
+        function removeLoading(...ids) {
+            ids.forEach(id => document.getElementById(id)?.classList.remove('loading'));
         }
 
-        updatePage();
+        function tierClass(color) {
+            if (color === 'partner') return 'tier-card partner card';
+            if (color === 'cofounder') return 'tier-card cofounder card';
+            return 'tier-card card';
+        }
+
+        async function loadPage() {
+            try {
+                const res = await fetch('data.json', { cache: 'no-store' });
+                const data = await res.json();
+                const funding = data.funding;
+                const total = funding.totalRaisedUSD;
+                const tokenTarget = funding.milestones[0].target;
+                const robotTarget = funding.milestones[1].target;
+
+                document.title = data.project.name + ' - Proyecto Open Source';
+                document.getElementById('projectTagline').textContent = data.project.tagline + ', orientada a ejecución técnica y crecimiento sostenible.';
+                document.getElementById('projectTagline').classList.remove('loading');
+
+                document.getElementById('totalRaised').textContent = fmtUSD(total);
+                document.getElementById('investors').textContent = funding.totalInvestors;
+                document.getElementById('milestone').textContent = total >= tokenTarget ? 'Despliegue' : 'Token';
+                removeLoading('totalRaised', 'investors', 'milestone');
+
+                const tokenPct = Math.min(100, (total / tokenTarget) * 100);
+                const robotPct = Math.min(100, (total / robotTarget) * 100);
+                document.getElementById('tokensBar').style.width = tokenPct + '%';
+                document.getElementById('robotsBar').style.width = robotPct + '%';
+                document.getElementById('tokensText').textContent = '$' + total.toLocaleString('es-ES') + ' / $' + tokenTarget.toLocaleString('es-ES');
+                document.getElementById('robotsText').textContent = '$' + total.toLocaleString('es-ES') + ' / $' + robotTarget.toLocaleString('es-ES');
+                removeLoading('tokensText', 'robotsText');
+
+                const tiersContainer = document.getElementById('tiersContainer');
+                tiersContainer.innerHTML = data.tiers.map(tier => `
+                    <article class="${tierClass(tier.color)}">
+                        <div class="tier-top">
+                            <div class="tier-name">${tier.name}</div>
+                            <div class="tier-range">${tier.range} USD</div>
+                        </div>
+                        <ul class="tier-benefits">
+                            ${tier.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                        </ul>
+                    </article>
+                `).join('');
+
+                document.getElementById('infoLink').href = `mailto:${data.contact.email}?subject=${data.contact.subjectInfo}`;
+                document.getElementById('contactLink').href = `mailto:${data.contact.email}?subject=${data.contact.subjectContact}`;
+            } catch (error) {
+                document.getElementById('projectTagline').textContent = 'No se pudieron cargar los datos del proyecto ahora mismo.';
+            }
+        }
+
+        loadPage();
     </script>
 </body>
 </html>

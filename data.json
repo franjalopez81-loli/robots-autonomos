@@ -1,0 +1,141 @@
+{
+  "project": {
+    "name": "Robots Autónomos",
+    "tagline": "Plataforma de desarrollo de robótica física con enfoque open source",
+    "version": "1.0.0",
+    "lastUpdated": "2026-04-23T14:30:00Z"
+  },
+  "funding": {
+    "totalRaisedUSD": 12032,
+    "totalInvestors": 7,
+    "currency": "USD",
+    "milestones": [
+      {
+        "id": "tokens",
+        "name": "Estructuración del token",
+        "target": 50000,
+        "current": 12032,
+        "completed": false
+      },
+      {
+        "id": "robots",
+        "name": "Despliegue de robots físicos",
+        "target": 100000,
+        "current": 12032,
+        "completed": false
+      }
+    ]
+  },
+  "tiers": [
+    {
+      "id": "support",
+      "name": "Support",
+      "range": "$0 - $99",
+      "min": 0,
+      "max": 99,
+      "benefits": [
+        "Reconocimiento como colaborador inicial",
+        "Actualizaciones periódicas del avance",
+        "Seguimiento público del proyecto"
+      ],
+      "color": "default"
+    },
+    {
+      "id": "seed",
+      "name": "Seed Backer",
+      "range": "$100 - $499",
+      "min": 100,
+      "max": 499,
+      "benefits": [
+        "Incluye todas las ventajas del nivel Support",
+        "Acceso anticipado a versiones beta",
+        "Condiciones preferentes en primeras unidades",
+        "Participación consultiva en decisiones no estratégicas"
+      ],
+      "color": "default"
+    },
+    {
+      "id": "private",
+      "name": "Private Investor",
+      "range": "$500 - $4,999",
+      "min": 500,
+      "max": 4999,
+      "benefits": [
+        "Incluye todas las ventajas del nivel Seed Backer",
+        "Participación en ingresos del 2%",
+        "Asignación de tokens del proyecto, si aplica",
+        "Participación consultiva en decisiones operativas",
+        "Reportes trimestrales de evolución"
+      ],
+      "color": "default"
+    },
+    {
+      "id": "partner",
+      "name": "Strategic Partner",
+      "range": "$5,000 - $24,999",
+      "min": 5000,
+      "max": 24999,
+      "benefits": [
+        "Incluye todas las ventajas del nivel Private Investor",
+        "Participación en ingresos del 5%",
+        "Equity estimado entre 0.5% y 1%, sujeto a acuerdo",
+        "Asignación prioritaria de una unidad física",
+        "Reportes mensuales de ejecución y métricas"
+      ],
+      "color": "partner"
+    },
+    {
+      "id": "lead",
+      "name": "Lead Investor",
+      "range": "$25,000+",
+      "min": 25000,
+      "max": null,
+      "benefits": [
+        "Incluye todas las ventajas del nivel Strategic Partner",
+        "Participación en ingresos del 10%",
+        "Equity estimado entre 2% y 5%, sujeto a negociación",
+        "Posición de observador en seguimiento estratégico",
+        "Condiciones preferentes en acuerdos de lanzamiento"
+      ],
+      "color": "cofounder"
+    }
+  ],
+  "wallets": {
+    "btc": {
+      "name": "Bitcoin",
+      "symbol": "₿",
+      "address": "bc1quqmfq6h36c8lkj4tp2cqk3dpnh30m4e0j6ag0g",
+      "color": "#f7931a",
+      "qr": "assets/btc.png"
+    },
+    "usdt": {
+      "name": "USDT",
+      "network": "ERC20",
+      "symbol": "₮",
+      "address": "0x92CFf003A3134f2f0aad8b832075b99A85393b71",
+      "color": "#26a17b",
+      "qr": "assets/usdt.png"
+    },
+    "xrp": {
+      "name": "XRP",
+      "symbol": "✕",
+      "address": "r94ARpUZ3exkt9nbEKAFifo65gpChwQ5n7",
+      "tag": "2287487128",
+      "color": "#23292f",
+      "qr": "assets/xrp.png"
+    },
+    "sol": {
+      "name": "Solana",
+      "symbol": "◎",
+      "address": "EajtNpUknKr8VmBW8vw9pEdrzBTX8Sa39QMg5F6YS8aq",
+      "color": "#9945ff",
+      "secondaryColor": "#14f195",
+      "qr": "assets/sol.png"
+    }
+  },
+  "contact": {
+    "email": "franjalopez81@gmail.com",
+    "subjectInfo": "Solicitud%20de%20informacion%20-%20Robots%20Autonomos",
+    "subjectContact": "Consulta%20-%20Robots%20Autonomos"
+  }
+}

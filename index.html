@@ -11,580 +11,603 @@
     </script>
     <style>
         :root {
-            --primary: #2563eb;
-            --success: #16a34a;
-            --warning: #ca8a04;
-            --bg: #0f172a;
-            --card: rgba(30, 41, 59, 0.95);
-            --text: #f1f5f9;
+            --primary: #3b82f6;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #08111f;
+            --panel: rgba(15, 23, 42, 0.90);
+            --panel-soft: rgba(15, 23, 42, 0.72);
+            --text: #f8fafc;
             --muted: #94a3b8;
+            --line: rgba(255,255,255,0.10);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80') center/cover fixed;
-            color: var(--text);
-            padding: 2rem;
-            line-height: 1.6;
+            font-family: Inter, system-ui, -apple-system, sans-serif;
             min-height: 100vh;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(37,99,235,0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(22,163,74,0.08) 0%, transparent 50%),
-                rgba(15, 23, 42, 0.88);
-            z-index: -1;
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            background: rgba(30,41,59,0.6);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-        h1 { 
-            font-size: 2.8rem; 
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .subtitle { 
-            color: var(--muted); 
-            font-size: 1.15rem;
-            letter-spacing: 0.05em;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 48px rgba(37,99,235,0.25);
-        }
-        .card h3 {
-            color: var(--muted);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-        .card .value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .card .value.success { color: var(--success); }
-        .card .value.warning { color: var(--warning); }
-        .section {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-        }
-        .section h2 {
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(37,99,235,0.3);
             color: var(--text);
+            line-height: 1.6;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(59,130,246,0.16), transparent 25%),
+                radial-gradient(circle at 85% 10%, rgba(34,197,94,0.08), transparent 20%),
+                linear-gradient(rgba(8,17,31,0.84), rgba(8,17,31,0.92)),
+                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80') center/cover fixed;
+            padding: 1.5rem;
         }
-        .tier-list { list-style: none; }
-        .tier-list li {
-            padding: 1.25rem;
+        .shell { max-width: 1240px; margin: 0 auto; }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--line);
+            background: rgba(2, 6, 23, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+        }
+        .brand { display: flex; align-items: center; gap: 0.9rem; }
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+            font-weight: 800;
+            box-shadow: 0 12px 28px rgba(37,99,235,0.28);
+        }
+        .brand strong { display: block; }
+        .brand span { color: var(--muted); font-size: 0.84rem; }
+        .top-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .top-actions a, .top-actions button {
             border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            background: rgba(0,0,0,0.3);
-            transition: border-color 0.2s, background 0.2s;
+            background: rgba(255,255,255,0.04);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s ease;
         }
-        .tier-list li:hover {
-            border-color: rgba(37,99,235,0.5);
-            background: rgba(0,0,0,0.4);
+        .top-actions a:hover, .top-actions button:hover { transform: translateY(-2px); background: rgba(255,255,255,0.08); }
+        .top-actions .primary { background: linear-gradient(135deg, #2563eb, #3b82f6); border-color: transparent; }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.4fr 0.9fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
-        .tier-list .tier-name {
-            font-weight: 600;
-            color: var(--primary);
-            display: block;
-            margin-bottom: 0.25rem;
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 16px 40px rgba(2,6,23,0.35);
+            backdrop-filter: blur(10px);
         }
-        .tier-list .tier-range {
+        .hero-main h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-bottom: 0.7rem;
+        }
+        .hero-main p { color: #d7e3f4; max-width: 760px; }
+        .eyebrow {
+            display: inline-flex;
+            padding: 0.38rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(59,130,246,0.12);
+            color: #93c5fd;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            font-weight: 700;
+            margin-bottom: 0.9rem;
+        }
+        .hero-meta {
+            margin-top: 1.3rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+        .mini-stat {
+            padding: 1rem;
+            border-radius: 18px;
+            background: var(--panel-soft);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .mini-stat strong { display: block; font-size: 1.2rem; }
+        .mini-stat span { color: var(--muted); font-size: 0.84rem; }
+        .status-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(34,197,94,0.10);
+            color: #86efac;
+            font-weight: 700;
+            width: fit-content;
+        }
+        .status-badge::before {
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: currentColor;
+            box-shadow: 0 0 0 6px rgba(34,197,94,0.12);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card h3 {
             color: var(--muted);
-            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
         }
-        .tier-list .tier-benefits {
-            margin-top: 0.75rem;
-            font-size: 0.9rem;
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
         }
-        .tier-list .tier-benefits li {
-            padding: 0.25rem 0;
-            border: none;
-            background: none;
+        .stat-value.primary { color: #60a5fa; }
+        .stat-value.success { color: #4ade80; }
+        .stat-value.warning { color: #fbbf24; }
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
-        .tier-list .tier-benefits li:before {
-            content: "✓ ";
-            color: var(--success);
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .section-copy {
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+        .progress-item + .progress-item { margin-top: 1rem; }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.45rem;
+            font-weight: 700;
         }
         .progress-bar {
-            background: rgba(0,0,0,0.4);
-            border-radius: 8px;
-            height: 12px;
+            height: 14px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 999px;
             overflow: hidden;
-            margin: 0.5rem 0;
         }
         .progress-fill {
-            background: linear-gradient(90deg, var(--primary), var(--success));
             height: 100%;
-            border-radius: 8px;
-            transition: width 0.3s;
+            width: 0;
+            border-radius: inherit;
+            transition: width 0.7s ease;
+            background: linear-gradient(90deg, #2563eb, #38bdf8);
         }
+        .progress-fill.green { background: linear-gradient(90deg, #16a34a, #22c55e); }
+        .timeline {
+            display: grid;
+            gap: 0.9rem;
+        }
+        .timeline-item {
+            padding: 1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+        }
+        .timeline-item strong { display: block; margin-bottom: 0.25rem; }
+        .timeline-item span { color: var(--muted); font-size: 0.9rem; }
+        .tiers-list {
+            display: grid;
+            gap: 1rem;
+        }
+        .tier-item {
+            padding: 1.1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+        }
+        .tier-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+        .tier-title { font-weight: 800; color: #93c5fd; }
+        .tier-range {
+            font-size: 0.85rem;
+            color: #dbeafe;
+            background: rgba(59,130,246,0.10);
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+        }
+        .tier-item ul { list-style: none; display: grid; gap: 0.4rem; color: #dbe5f3; }
+        .tier-item li::before { content: '✓ '; color: var(--success); font-weight: 800; }
         .wallet-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
-            padding: 1rem;
+            gap: 1rem;
         }
-        .wallet-emblem {
-            background: rgba(0,0,0,0.4);
+        .wallet-card {
+            position: relative;
+            padding: 1.3rem 1rem;
             border-radius: 20px;
-            padding: 2.5rem 1rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.10);
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
+            transition: 0.25s ease;
         }
-        .wallet-emblem::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(37,99,235,0.3), transparent);
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-        }
-        .wallet-emblem:hover::before {
-            width: 200px;
-            height: 200px;
-        }
-        .wallet-emblem:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 16px 48px rgba(37,99,235,0.4);
-            border-color: var(--primary);
+        .wallet-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96,165,250,0.40);
+            box-shadow: 0 14px 34px rgba(37,99,235,0.22);
         }
         .wallet-logo {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 1rem auto;
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 0.9rem;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
         }
-        .wallet-name {
-            color: var(--text);
-            font-weight: 600;
-            font-size: 1rem;
-        }
+        .wallet-name { font-weight: 800; }
+        .wallet-sub { color: var(--muted); font-size: 0.84rem; margin-top: 0.2rem; }
+        .loading { opacity: 0.6; animation: pulse 1.2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.9);
+            inset: 0;
+            background: rgba(2,6,23,0.82);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            padding: 1rem;
             backdrop-filter: blur(8px);
         }
         .modal-overlay.active { display: flex; }
         .modal-content {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 2.5rem;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
+            width: min(560px, 100%);
+            background: rgba(15,23,42,0.96);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.10);
+            padding: 1.5rem;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.1);
         }
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 24px;
+            top: 0.8rem;
+            right: 0.8rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: white;
             cursor: pointer;
-            padding: 0.5rem;
-            transition: color 0.2s;
         }
-        .modal-close:hover { color: var(--text); }
-        .modal-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem auto;
-        }
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+        .modal-title { font-size: 1.5rem; margin-top: 0.4rem; }
         .modal-address {
-            background: rgba(0,0,0,0.4);
+            margin-top: 1rem;
             padding: 1rem;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.875rem;
+            border-radius: 16px;
+            background: rgba(2,6,23,0.55);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-family: ui-monospace, SFMono-Regular, monospace;
             word-break: break-all;
-            margin: 1rem 0;
             cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.1);
+            white-space: pre-wrap;
         }
         .modal-qr {
-            margin: 1.5rem auto;
-            max-width: 250px;
-            background: white;
-            padding: 1rem;
-            border-radius: 12px;
-        }
-        .modal-qr img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .modal-copy-btn {
-            background: linear-gradient(135deg, var(--primary), #1d4ed8);
-            color: white;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
             margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 18px;
+            background: white;
+            width: min(240px, 100%);
         }
-        .modal-copy-btn:hover { transform: translateY(-2px); }
-        .copied-hint {
-            color: var(--success);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: none;
+        .modal-qr img { width: 100%; display: block; }
+        .modal-actions { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .modal-btn {
+            padding: 0.85rem 1.1rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 800;
         }
-        footer {
+        .modal-btn.primary { background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; }
+        .modal-btn.secondary { background: rgba(255,255,255,0.08); color: white; }
+        .copied-hint { color: #86efac; margin-top: 0.8rem; display: none; }
+        .footer {
             text-align: center;
             color: var(--muted);
-            font-size: 0.875rem;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 0 2rem;
+            font-size: 0.9rem;
         }
-        .tag-note {
-            color: #f59e0b;
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
+        @media (max-width: 920px) {
+            .hero, .section-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 720px) {
+            body { padding: 1rem; }
+            .topbar { flex-direction: column; align-items: stretch; }
+            .top-actions a, .top-actions button { width: 100%; text-align: center; }
+            .hero-meta { grid-template-columns: 1fr; }
+            .progress-label { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Robots Autónomos</h1>
-            <p class="subtitle">Área privada de inversores, seguimiento del proyecto y datos operativos</p>
-        </header>
-
-        <div class="grid">
-            <div class="card">
-                <h3>Total Recaudado</h3>
-                <div class="value" id="totalRaised">$0 USD</div>
+    <div class="shell">
+        <div class="topbar">
+            <div class="brand">
+                <div class="brand-mark">RA</div>
+                <div>
+                    <strong>Robots Autónomos</strong>
+                    <span>Área privada para inversores y seguimiento operativo</span>
+                </div>
             </div>
-            <div class="card">
+            <div class="top-actions">
+                <a href="public.html">Vista pública</a>
+                <a class="primary" href="#wallets">Carteras</a>
+                <button type="button" onclick="logout()">Cerrar sesión</button>
+            </div>
+        </div>
+
+        <section class="hero">
+            <div class="panel hero-main">
+                <div class="eyebrow">Acceso privado, información operativa</div>
+                <h1>Dashboard de inversores</h1>
+                <p id="heroCopy" class="loading">Cargando contexto operativo...</p>
+                <div class="hero-meta">
+                    <div class="mini-stat">
+                        <strong id="lastUpdate" class="loading">--</strong>
+                        <span>Última actualización</span>
+                    </div>
+                    <div class="mini-stat">
+                        <strong id="nextMilestoneMini" class="loading">--</strong>
+                        <span>Próximo desbloqueo</span>
+                    </div>
+                </div>
+            </div>
+            <aside class="panel status-card">
+                <div>
+                    <div class="status-badge">Captación activa</div>
+                    <h2 style="margin-top:1rem;">Panel reservado</h2>
+                    <p style="color:var(--muted); margin-top:0.6rem;">Aquí tienes métricas, estructura de participación y carteras de aportación en un entorno distinto al de visitante.</p>
+                </div>
+                <p style="color:var(--muted); font-size:0.9rem; margin-top:1rem;">Si necesitas compartir contexto general, usa la vista pública.</p>
+            </aside>
+        </section>
+
+        <section class="stats-grid">
+            <article class="panel stat-card">
+                <h3>Total recaudado</h3>
+                <div class="stat-value primary loading" id="totalRaised">$0 USD</div>
+            </article>
+            <article class="panel stat-card">
                 <h3>Inversores</h3>
-                <div class="value" id="totalInvestors">0</div>
-            </div>
-            <div class="card">
+                <div class="stat-value loading" id="totalInvestors">0</div>
+            </article>
+            <article class="panel stat-card">
                 <h3>Próxima fase</h3>
-                <div class="value warning" id="nextMilestone">Estructuración token ($50k)</div>
-            </div>
-            <div class="card">
+                <div class="stat-value warning loading" id="nextMilestone">Token</div>
+            </article>
+            <article class="panel stat-card">
                 <h3>Estado</h3>
-                <div class="value success" style="font-size: 1.2rem;">
-                    <span class="status-badge pending">Captación activa</span>
+                <div class="stat-value success">Operativo</div>
+            </article>
+        </section>
+
+        <section class="section-grid">
+            <div class="panel">
+                <h2 class="section-title">Progreso de financiación</h2>
+                <p class="section-copy">Lectura rápida de los dos hitos principales para saber qué fase está más cerca de desbloquearse.</p>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Fase 1, estructuración del token</span>
+                        <span id="tokensProgress" class="loading">$0 / 50,000 USD</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="tokensBar"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Fase 2, despliegue de robots físicos</span>
+                        <span id="robotsProgress" class="loading">$0 / 100,000 USD</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill green" id="robotsBar"></div></div>
                 </div>
             </div>
-        </div>
-
-        <div class="section">
-            <h2>Progreso de financiación</h2>
-            <div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                    <span>Fase 1, estructuración del token</span>
-                    <span id="tokensProgress">0 / 50,000 USD</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="tokensBar" style="width: 0%"></div>
-                </div>
-            </div>
-            <div style="margin-top: 1rem;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                    <span>Fase 2, despliegue de robots físicos</span>
-                    <span id="robotsProgress">0 / 100,000 USD</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="robotsBar" style="width: 0%"></div>
+            <div class="panel">
+                <h2 class="section-title">Lectura rápida</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Visitante</strong>
+                        <span>Ve contexto, hitos generales y llamada a contactar.</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Inversor</strong>
+                        <span>Ve datos operativos, estructura completa y carteras de aportación.</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Objetivo</strong>
+                        <span>Diferenciar claramente presentación pública y seguimiento privado.</span>
+                    </div>
                 </div>
             </div>
-            <p style="font-size: 0.8rem; color: var(--muted); margin-top: 1rem;">Última actualización registrada: <span id="lastUpdate">--</span></p>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2>Estructura de participación</h2>
-            <ul class="tier-list">
-                <li>
-                    <span class="tier-name">Support</span>
-                    <span class="tier-range">$0 - $99 USD</span>
-                    <ul class="tier-benefits">
-                        <li>Reconocimiento como colaborador inicial</li>
-                        <li>Actualizaciones periódicas del avance</li>
-                        <li>Seguimiento público del proyecto</li>
-                    </ul>
-                </li>
-                <li>
-                    <span class="tier-name">Seed Backer</span>
-                    <span class="tier-range">$100 - $499 USD</span>
-                    <ul class="tier-benefits">
-                        <li>Incluye todas las ventajas del nivel Support</li>
-                        <li>Acceso anticipado a versiones beta</li>
-                        <li>Condiciones preferentes en primeras unidades</li>
-                        <li>Participación consultiva en decisiones no estratégicas</li>
-                    </ul>
-                </li>
-                <li>
-                    <span class="tier-name">Private Investor</span>
-                    <span class="tier-range">$500 - $4,999 USD</span>
-                    <ul class="tier-benefits">
-                        <li>Incluye todas las ventajas del nivel Seed Backer</li>
-                        <li>Participación en ingresos del 2%</li>
-                        <li>Asignación de tokens del proyecto, si aplica</li>
-                        <li>Participación consultiva en decisiones operativas</li>
-                        <li>Reportes trimestrales de evolución</li>
-                    </ul>
-                </li>
-                <li>
-                    <span class="tier-name">Strategic Partner</span>
-                    <span class="tier-range">$5,000 - $24,999 USD</span>
-                    <ul class="tier-benefits">
-                        <li>Incluye todas las ventajas del nivel Private Investor</li>
-                        <li>Participación en ingresos del 5%</li>
-                        <li>Equity estimado entre 0.5% y 1%, sujeto a acuerdo</li>
-                        <li>Asignación prioritaria de una unidad física</li>
-                        <li>Reportes mensuales de ejecución y métricas</li>
-                    </ul>
-                </li>
-                <li>
-                    <span class="tier-name">Lead Investor</span>
-                    <span class="tier-range">$25,000+ USD</span>
-                    <ul class="tier-benefits">
-                        <li>Incluye todas las ventajas del nivel Strategic Partner</li>
-                        <li>Participación en ingresos del 10%</li>
-                        <li>Equity estimado entre 2% y 5%, sujeto a negociación</li>
-                        <li>Posición de observador en seguimiento estratégico</li>
-                        <li>Condiciones preferentes en acuerdos de lanzamiento</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Carteras de aportación</h2>
-            <p style="color: var(--muted); margin-bottom: 1.5rem;">Seleccione un activo para consultar dirección, QR y datos de envío.</p>
-            
-            <div class="wallet-grid">
-                <div class="wallet-emblem" onclick="openWalletModal('btc')">
-                    <svg class="wallet-logo" viewBox="0 0 64 64">
-                        <circle cx="32" cy="32" r="30" fill="#f7931a"/>
-                        <text x="32" y="42" text-anchor="middle" fill="white" font-size="28" font-weight="bold">₿</text>
-                    </svg>
-                    <div class="wallet-name">Bitcoin</div>
-                </div>
-                <div class="wallet-emblem" onclick="openWalletModal('usdt')">
-                    <svg class="wallet-logo" viewBox="0 0 64 64">
-                        <circle cx="32" cy="32" r="30" fill="#26a17b"/>
-                        <text x="32" y="44" text-anchor="middle" fill="white" font-size="26" font-weight="bold">₮</text>
-                    </svg>
-                    <div class="wallet-name">USDT</div>
-                </div>
-                <div class="wallet-emblem" onclick="openWalletModal('xrp')">
-                    <svg class="wallet-logo" viewBox="0 0 64 64">
-                        <circle cx="32" cy="32" r="30" fill="#23292f"/>
-                        <path d="M32 18L18 32l14 14 14-14-14-14zm0 4l10 10-10 10-10-10 10-10z" fill="white"/>
-                    </svg>
-                    <div class="wallet-name">XRP</div>
-                </div>
-                <div class="wallet-emblem" onclick="openWalletModal('sol')">
-                    <svg class="wallet-logo" viewBox="0 0 64 64">
-                        <defs>
-                            <linearGradient id="solGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#9945ff"/>
-                                <stop offset="100%" style="stop-color:#14f195"/>
-                            </linearGradient>
-                        </defs>
-                        <circle cx="32" cy="32" r="30" fill="url(#solGrad)"/>
-                        <path d="M20 28l8-8h16l-8 8H20zm0 8l8-8h16l-8 8H20z" fill="white" opacity="0.9"/>
-                    </svg>
-                    <div class="wallet-name">Solana</div>
-                </div>
+        <section class="section-grid">
+            <div class="panel">
+                <h2 class="section-title">Estructura de participación</h2>
+                <div class="tiers-list" id="tiersContainer"></div>
             </div>
-        </div>
+            <div class="panel" id="wallets">
+                <h2 class="section-title">Carteras de aportación</h2>
+                <p class="section-copy">Pulsa sobre un activo para ver dirección, QR y copiar los datos con un clic.</p>
+                <div class="wallet-grid" id="walletGrid"></div>
+            </div>
+        </section>
 
-        <footer>
-            <p>Robots Autónomos, área privada de seguimiento</p>
-            <p style="margin-top: 0.5rem;">Actualización operativa periódica</p>
+        <footer class="footer">
+            <p>Robots Autónomos, área privada de seguimiento para inversores.</p>
         </footer>
     </div>
 
-    <!-- Wallet Modal -->
-    <div class="modal-overlay" id="walletModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeWalletModal()">&times;</button>
+    <div class="modal-overlay" id="walletModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" aria-label="Cerrar" onclick="closeWalletModal()">×</button>
             <div id="modalLogo"></div>
-            <h3 class="modal-title" id="modalTitle">Bitcoin</h3>
-            <p style="color: var(--muted); font-size: 0.875rem;">Pulse para copiar la dirección de aportación</p>
+            <h3 class="modal-title" id="modalTitle">Wallet</h3>
+            <p style="color:var(--muted); margin-top:0.35rem;">Pulsa la dirección o usa el botón para copiarla.</p>
             <div class="modal-address" id="modalAddress" onclick="copyAddress()"></div>
             <div class="modal-qr" id="modalQR"></div>
-            <button class="modal-copy-btn" onclick="copyAddress()">Copiar dirección</button>
-            <p class="copied-hint" id="copiedHint">Dirección copiada correctamente</p>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="copyAddress()">Copiar dirección</button>
+                <button class="modal-btn secondary" onclick="closeWalletModal()">Cerrar</button>
+            </div>
+            <p class="copied-hint" id="copiedHint">Dirección copiada correctamente.</p>
         </div>
     </div>
 
     <script>
-        const walletData = {
-            btc: {
-                name: 'Bitcoin',
-                address: 'bc1quqmfq6h36c8lkj4tp2cqk3dpnh30m4e0j6ag0g',
-                logo: '<svg class="modal-logo" viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="#f7931a"/><text x="40" y="52" text-anchor="middle" fill="white" font-size="36" font-weight="bold">₿</text></svg>',
-                qr: 'assets/btc.png'
-            },
-            usdt: {
-                name: 'USDT (ERC20)',
-                address: '0x92CFf003A3134f2f0aad8b832075b99A85393b71',
-                logo: '<svg class="modal-logo" viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="#26a17b"/><text x="40" y="54" text-anchor="middle" fill="white" font-size="34" font-weight="bold">₮</text></svg>',
-                qr: 'assets/usdt.png'
-            },
-            xrp: {
-                name: 'XRP',
-                address: 'r94ARpUZ3exkt9nbEKAFifo65gpChwQ5n7',
-                tag: '2287487128',
-                logo: '<svg class="modal-logo" viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="#23292f"/><path d="M40 20L20 40l20 20 20-20-20-20zm0 8l12 12-12 12-12-12 12-12z" fill="white"/></svg>',
-                qr: 'assets/xrp.png'
-            },
-            sol: {
-                name: 'Solana',
-                address: 'EajtNpUknKr8VmBW8vw9pEdrzBTX8Sa39QMg5F6YS8aq',
-                logo: '<svg class="modal-logo" viewBox="0 0 80 80"><defs><linearGradient id="solModalGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#9945ff"/><stop offset="100%" style="stop-color:#14f195"/></linearGradient></defs><circle cx="40" cy="40" r="38" fill="url(#solModalGrad)"/><path d="M24 32l10-10h20l-10 10H24zm0 16l10-10h20l-10 10H24z" fill="white" opacity="0.9"/></svg>',
-                qr: 'assets/sol.png'
-            }
-        };
-
         let currentWallet = null;
+        let walletData = {};
+
+        const fmtUSD = value => '$' + Number(value).toLocaleString('es-ES') + ' USD';
+        const fmtShort = value => '$' + Number(value).toLocaleString('es-ES');
+
+        function logout() {
+            sessionStorage.removeItem('authenticated');
+            window.location.href = 'login.html';
+        }
+
+        function removeLoading(...ids) {
+            ids.forEach(id => document.getElementById(id)?.classList.remove('loading'));
+        }
+
+        function walletLogo(key, wallet) {
+            if (key === 'sol') {
+                return `<div class="wallet-logo" style="background:linear-gradient(135deg, ${wallet.color}, ${wallet.secondaryColor});">◎</div>`;
+            }
+            return `<div class="wallet-logo" style="background:${wallet.color};">${wallet.symbol}</div>`;
+        }
 
         function openWalletModal(currency) {
             const data = walletData[currency];
+            if (!data) return;
             currentWallet = currency;
-            
-            document.getElementById('modalLogo').innerHTML = data.logo;
-            document.getElementById('modalTitle').textContent = data.name;
-            
-            let addressText = data.address;
-            if (data.tag) {
-                addressText = data.address + '\nTag: ' + data.tag;
-            }
-            document.getElementById('modalAddress').textContent = addressText;
-            document.getElementById('modalQR').innerHTML = '<img src="' + data.qr + '" alt="QR ' + data.name + '" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<p style=color:#ef4444>QR no disponible</p>\'">';
+            document.getElementById('modalLogo').innerHTML = walletLogo(currency, data);
+            document.getElementById('modalTitle').textContent = data.network ? `${data.name} (${data.network})` : data.name;
+            document.getElementById('modalAddress').textContent = data.tag ? `${data.address}\nTag: ${data.tag}` : data.address;
+            document.getElementById('modalQR').innerHTML = `<img src="${data.qr}" alt="QR ${data.name}" onerror="this.parentElement.innerHTML='<p style=\"color:#ef4444; font-weight:700;\">QR no disponible</p>'">`;
             document.getElementById('copiedHint').style.display = 'none';
-            
-            document.getElementById('walletModal').classList.add('active');
+            const modal = document.getElementById('walletModal');
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
         }
 
         function closeWalletModal() {
-            document.getElementById('walletModal').classList.remove('active');
+            const modal = document.getElementById('walletModal');
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
             currentWallet = null;
         }
 
-        function copyAddress() {
+        async function copyAddress() {
             if (!currentWallet) return;
-            
             const data = walletData[currentWallet];
-            let address = data.address;
-            if (data.tag) {
-                address = data.address + ' (Tag: ' + data.tag + ')';
-            }
-            navigator.clipboard.writeText(address).then(() => {
+            const text = data.tag ? `${data.address} (Tag: ${data.tag})` : data.address;
+            try {
+                await navigator.clipboard.writeText(text);
                 document.getElementById('copiedHint').style.display = 'block';
                 setTimeout(() => {
                     document.getElementById('copiedHint').style.display = 'none';
-                }, 2000);
-            });
+                }, 1800);
+            } catch (_) {}
         }
 
-        document.getElementById('walletModal').addEventListener('click', function(e) {
+        document.getElementById('walletModal').addEventListener('click', function (e) {
             if (e.target === this) closeWalletModal();
         });
 
-        const dashboardData = {
-            totalRaisedUSD: 12032,
-            totalInvestors: 7,
-            lastUpdate: new Date().toISOString()
-        };
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeWalletModal();
+        });
 
-        function updateDashboard() {
-            document.getElementById('totalRaised').textContent = '$' + dashboardData.totalRaisedUSD.toLocaleString() + ' USD';
-            document.getElementById('totalInvestors').textContent = dashboardData.totalInvestors;
-            
-            const tokensPct = Math.min(100, (dashboardData.totalRaisedUSD / 50000) * 100);
-            const robotsPct = Math.min(100, (dashboardData.totalRaisedUSD / 100000) * 100);
-            
-            document.getElementById('tokensBar').style.width = tokensPct + '%';
-            document.getElementById('tokensProgress').textContent = '$' + dashboardData.totalRaisedUSD.toLocaleString() + ' / 50,000 USD';
-            
-            document.getElementById('robotsBar').style.width = robotsPct + '%';
-            document.getElementById('robotsProgress').textContent = '$' + dashboardData.totalRaisedUSD.toLocaleString() + ' / 100,000 USD';
-            
-            document.getElementById('lastUpdate').textContent = new Date(dashboardData.lastUpdate).toLocaleString('es-ES');
-            document.getElementById('nextMilestone').textContent = dashboardData.totalRaisedUSD >= 50000 ? 'Despliegue físico ($100k)' : 'Estructuración token ($50k)';
+        async function loadDashboard() {
+            try {
+                const res = await fetch('data.json', { cache: 'no-store' });
+                const data = await res.json();
+                const funding = data.funding;
+                const total = funding.totalRaisedUSD;
+                const tokens = funding.milestones[0];
+                const robots = funding.milestones[1];
+                walletData = data.wallets;
+
+                document.title = `${data.project.name} - Dashboard Inversores`;
+                document.getElementById('heroCopy').textContent = `${data.project.tagline}. Aquí se muestran datos prácticos de seguimiento, aportación y estructura de participación.`;
+                document.getElementById('lastUpdate').textContent = new Date(data.project.lastUpdated).toLocaleString('es-ES');
+                document.getElementById('nextMilestoneMini').textContent = total >= tokens.target ? robots.name : tokens.name;
+                removeLoading('heroCopy', 'lastUpdate', 'nextMilestoneMini');
+
+                document.getElementById('totalRaised').textContent = fmtUSD(total);
+                document.getElementById('totalInvestors').textContent = funding.totalInvestors;
+                document.getElementById('nextMilestone').textContent = total >= tokens.target ? 'Despliegue físico' : 'Estructuración token';
+                removeLoading('totalRaised', 'totalInvestors', 'nextMilestone');
+
+                const tokensPct = Math.min(100, (total / tokens.target) * 100);
+                const robotsPct = Math.min(100, (total / robots.target) * 100);
+                document.getElementById('tokensBar').style.width = tokensPct + '%';
+                document.getElementById('robotsBar').style.width = robotsPct + '%';
+                document.getElementById('tokensProgress').textContent = `${fmtShort(total)} / ${tokens.target.toLocaleString('es-ES')} USD`;
+                document.getElementById('robotsProgress').textContent = `${fmtShort(total)} / ${robots.target.toLocaleString('es-ES')} USD`;
+                removeLoading('tokensProgress', 'robotsProgress');
+
+                document.getElementById('tiersContainer').innerHTML = data.tiers.map(tier => `
+                    <article class="tier-item">
+                        <div class="tier-head">
+                            <div class="tier-title">${tier.name}</div>
+                            <div class="tier-range">${tier.range} USD</div>
+                        </div>
+                        <ul>${tier.benefits.map(benefit => `<li>${benefit}</li>`).join('')}</ul>
+                    </article>
+                `).join('');
+
+                document.getElementById('walletGrid').innerHTML = Object.entries(data.wallets).map(([key, wallet]) => `
+                    <button class="wallet-card" type="button" onclick="openWalletModal('${key}')" aria-label="Abrir cartera ${wallet.name}">
+                        ${walletLogo(key, wallet)}
+                        <div class="wallet-name">${wallet.name}</div>
+                        <div class="wallet-sub">${wallet.network || 'Dirección de aportación'}</div>
+                    </button>
+                `).join('');
+            } catch (error) {
+                document.getElementById('heroCopy').textContent = 'No se pudieron cargar los datos del dashboard.';
+            }
         }
 
-        updateDashboard();
-        setInterval(updateDashboard, 300000);
+        loadDashboard();
     </script>
 </body>
 </html>
