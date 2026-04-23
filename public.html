@@ -103,6 +103,70 @@
                 linear-gradient(135deg, rgba(124,58,237,0.22), rgba(37,99,235,0.14)),
                 rgba(15,23,42,0.65);
             box-shadow: 0 24px 80px rgba(2,6,23,0.5);
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        .hero-copy {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-visual {
+            position: relative;
+            min-height: 420px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(124,58,237,0.25), transparent 60%);
+            pointer-events: none;
+        }
+        .hero-portrait {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 22px 44px rgba(0,0,0,0.45));
+        }
+        .hero-visual.missing .hero-portrait { display: none; }
+        .asset-missing {
+            display: none;
+            position: relative;
+            z-index: 1;
+            max-width: 280px;
+            text-align: center;
+            color: #dbe4ff;
+        }
+        .hero-visual.missing .asset-missing { display: block; }
+        .asset-missing strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 0.55rem;
+        }
+        .hero-badge {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            z-index: 2;
+            padding: 0.6rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(2,6,23,0.72);
+            border: 1px solid rgba(255,255,255,0.10);
+            color: #ddd6fe;
+            font-size: 0.82rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
         }
         .eyebrow {
             display: inline-flex;
@@ -265,6 +329,10 @@
             0%, 100% { opacity: 0.55; }
             50% { opacity: 1; }
         }
+        @media (max-width: 920px) {
+            .hero-box { grid-template-columns: 1fr; }
+            .hero-visual { min-height: 320px; order: -1; }
+        }
         @media (max-width: 720px) {
             .hero-box, .card { padding: 1.25rem; }
             .hero { padding-top: 2.5rem; }
@@ -297,14 +365,24 @@
     <main class="container">
         <section class="hero">
             <div class="hero-box">
-                <div class="eyebrow">Proyecto open source, visión industrial</div>
-                <h1>Robótica física con ambición de producto real</h1>
-                <p id="projectTagline" class="loading">Cargando información del proyecto...</p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="#niveles">Ver niveles de inversión</a>
-                    <a class="btn btn-outline" href="mailto:franjalopez81@gmail.com?subject=Solicitud%20de%20informacion%20-%20Robots%20Autonomos">Solicitar información</a>
+                <div class="hero-copy">
+                    <div class="eyebrow">Proyecto open source, visión industrial</div>
+                    <h1>Robótica física con una identidad de producto reconocible</h1>
+                    <p id="projectTagline" class="loading">Cargando información del proyecto...</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#niveles">Ver niveles de inversión</a>
+                        <a class="btn btn-outline" href="mailto:franjalopez81@gmail.com?subject=Solicitud%20de%20informacion%20-%20Robots%20Autonomos">Solicitar información</a>
+                    </div>
+                    <div class="hero-note">Esta página está pensada para visitantes e interesados. El área privada ofrece seguimiento operativo y datos de aportación.</div>
                 </div>
-                <div class="hero-note">Esta página está pensada para visitantes e interesados. El área privada ofrece seguimiento operativo y datos de aportación.</div>
+                <div class="hero-visual missing" id="lolibotHero">
+                    <img class="hero-portrait" id="lolibotImage" src="assets/lolibot.png" alt="Lolibot, identidad visual del proyecto">
+                    <div class="asset-missing">
+                        <strong>Espacio reservado para Lolibot</strong>
+                        <span>En cuanto el archivo final esté en <code>assets/lolibot.png</code>, esta zona mostrará la imagen principal del proyecto.</span>
+                    </div>
+                    <div class="hero-badge">Lolibot, identidad visual del proyecto</div>
+                </div>
             </div>
         </section>
 
@@ -423,6 +501,10 @@
                 document.getElementById('projectTagline').textContent = 'No se pudieron cargar los datos del proyecto ahora mismo.';
             }
         }
+
+        const lolibotImage = document.getElementById('lolibotImage');
+        lolibotImage?.addEventListener('load', () => document.getElementById('lolibotHero')?.classList.remove('missing'));
+        lolibotImage?.addEventListener('error', () => document.getElementById('lolibotHero')?.classList.add('missing'));
 
         loadPage();
     </script>

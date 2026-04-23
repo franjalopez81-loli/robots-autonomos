@@ -85,6 +85,52 @@
             gap: 1.25rem;
             margin-bottom: 1.5rem;
         }
+        .hero-side {
+            display: grid;
+            gap: 1.25rem;
+        }
+        .hero-visual {
+            position: relative;
+            min-height: 280px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(59,130,246,0.20), transparent 60%);
+            pointer-events: none;
+        }
+        .hero-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+            display: block;
+            filter: drop-shadow(0 20px 34px rgba(0,0,0,0.45));
+        }
+        .hero-visual.missing img { display: none; }
+        .hero-fallback {
+            display: none;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 240px;
+            color: #dbeafe;
+        }
+        .hero-visual.missing .hero-fallback { display: block; }
+        .hero-fallback strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
         .panel {
             background: var(--panel);
             border: 1px solid var(--line);
@@ -348,6 +394,7 @@
         }
         @media (max-width: 920px) {
             .hero, .section-grid { grid-template-columns: 1fr; }
+            .hero-side { order: -1; }
         }
         @media (max-width: 720px) {
             body { padding: 1rem; }
@@ -391,14 +438,23 @@
                     </div>
                 </div>
             </div>
-            <aside class="panel status-card">
-                <div>
-                    <div class="status-badge">Captación activa</div>
-                    <h2 style="margin-top:1rem;">Panel reservado</h2>
-                    <p style="color:var(--muted); margin-top:0.6rem;">Aquí tienes métricas, estructura de participación y carteras de aportación en un entorno distinto al de visitante.</p>
-                </div>
-                <p style="color:var(--muted); font-size:0.9rem; margin-top:1rem;">Si necesitas compartir contexto general, usa la vista pública.</p>
-            </aside>
+            <div class="hero-side">
+                <aside class="panel status-card">
+                    <div>
+                        <div class="status-badge">Captación activa</div>
+                        <h2 style="margin-top:1rem;">Panel reservado</h2>
+                        <p style="color:var(--muted); margin-top:0.6rem;">Aquí tienes métricas, estructura de participación y carteras de aportación en un entorno distinto al de visitante.</p>
+                    </div>
+                    <p style="color:var(--muted); font-size:0.9rem; margin-top:1rem;">Si necesitas compartir contexto general, usa la vista pública.</p>
+                </aside>
+                <aside class="panel hero-visual missing" id="lolibotPrivateCard">
+                    <img id="lolibotPrivateImage" src="assets/lolibot.png" alt="Lolibot, referencia visual del proyecto">
+                    <div class="hero-fallback">
+                        <strong>Lolibot pendiente de integrar</strong>
+                        <span>La tarjeta visual quedará activa automáticamente cuando exista <code>assets/lolibot.png</code>.</span>
+                    </div>
+                </aside>
+            </div>
         </section>
 
         <section class="stats-grid">
@@ -606,6 +662,10 @@
                 document.getElementById('heroCopy').textContent = 'No se pudieron cargar los datos del dashboard.';
             }
         }
+
+        const lolibotPrivateImage = document.getElementById('lolibotPrivateImage');
+        lolibotPrivateImage?.addEventListener('load', () => document.getElementById('lolibotPrivateCard')?.classList.remove('missing'));
+        lolibotPrivateImage?.addEventListener('error', () => document.getElementById('lolibotPrivateCard')?.classList.add('missing'));
 
         loadDashboard();
     </script>
