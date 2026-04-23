@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robots Autónomos - Dashboard Inversores</title>
     <script>
-        // Proteger dashboard - redirect si no autenticado
         if (sessionStorage.getItem('authenticated') !== 'true') {
             window.location.href = 'login.html';
         }
@@ -136,34 +135,139 @@
             border-radius: 8px;
             transition: width 0.3s;
         }
-        .wallet-list { font-family: monospace; font-size: 0.85rem; }
-        .wallet-list div {
-            padding: 0.5rem;
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        .wallet-emblem {
             background: var(--bg);
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-            word-break: break-all;
+            border-radius: 16px;
+            padding: 2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
         }
-        .wallet-label {
-            color: var(--muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
+        .wallet-emblem:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102,126,234,0.3);
+            border-color: var(--primary);
         }
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
+        .wallet-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+        .wallet-icon.btc { background: linear-gradient(135deg, #f7931a, #ffb347); }
+        .wallet-icon.usdt { background: linear-gradient(135deg, #26a17b, #48d5a0); }
+        .wallet-icon.xrp { background: linear-gradient(135deg, #23292f, #5a6570); }
+        .wallet-icon.sol { background: linear-gradient(135deg, #9945ff, #14f195); }
+        .wallet-name {
+            color: var(--text);
             font-weight: 600;
-            text-transform: uppercase;
+            font-size: 1rem;
         }
-        .status-badge.active {
-            background: rgba(22, 163, 74, 0.2);
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--text); }
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .modal-address {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            word-break: break-all;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .modal-address:hover { background: #1a2744; }
+        .modal-qr {
+            margin: 1.5rem auto;
+            max-width: 200px;
+        }
+        .modal-qr img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .modal-copy-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 1rem;
+        }
+        .modal-copy-btn:hover { transform: translateY(-2px); }
+        .copied-hint {
             color: var(--success);
-        }
-        .status-badge.pending {
-            background: rgba(202, 138, 4, 0.2);
-            color: var(--warning);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
         }
         footer {
             text-align: center;
@@ -173,17 +277,12 @@
             padding-top: 2rem;
             border-top: 1px solid var(--card);
         }
-        .refresh-note {
-            font-size: 0.8rem;
-            color: var(--muted);
-            margin-top: 1rem;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛠️ Robots Autónomos</h1>
+            <h1>Robots Autónomos</h1>
             <p class="subtitle">Dashboard de Inversores - Estado del Proyecto</p>
         </header>
 
@@ -228,7 +327,7 @@
                     <div class="progress-fill" id="robotsBar" style="width: 0%"></div>
                 </div>
             </div>
-            <p class="refresh-note">Datos actualizados: <span id="lastUpdate">--</span></p>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-top: 1rem;">Datos actualizados: <span id="lastUpdate">--</span></p>
         </div>
 
         <div class="section">
@@ -291,22 +390,24 @@
 
         <div class="section">
             <h2>💳 Carteras de Inversión</h2>
-            <div class="wallet-list">
-                <div>
-                    <div class="wallet-label">🟠 Bitcoin (BTC)</div>
-                    bc1quqmfq6h36c8lkj4tp2cqk3dpnh30m4e0j6ag0g
+            <p style="color: var(--muted); margin-bottom: 1.5rem;">Haz click en cada emblema para ver la dirección y QR</p>
+            
+            <div class="wallet-grid">
+                <div class="wallet-emblem" onclick="openWalletModal('btc')">
+                    <div class="wallet-icon btc">₿</div>
+                    <div class="wallet-name">Bitcoin</div>
                 </div>
-                <div>
-                    <div class="wallet-label">💵 USDT (ERC20)</div>
-                    0x92CFf003A3134f2f0aad8b832075b99A85393b71
+                <div class="wallet-emblem" onclick="openWalletModal('usdt')">
+                    <div class="wallet-icon usdt">₮</div>
+                    <div class="wallet-name">USDT</div>
                 </div>
-                <div>
-                    <div class="wallet-label">💙 XRP</div>
-                    r94ARpUZ3exkt9nbEKAFifo65gpChwQ5n7 (Tag: 2287487128)
+                <div class="wallet-emblem" onclick="openWalletModal('xrp')">
+                    <div class="wallet-icon xrp">✕</div>
+                    <div class="wallet-name">XRP</div>
                 </div>
-                <div>
-                    <div class="wallet-label">🟣 Solana (SOL)</div>
-                    EajtNpUknKr8VmBW8vw9pEdrzBTX8Sa39QMg5F6YS8aq
+                <div class="wallet-emblem" onclick="openWalletModal('sol')">
+                    <div class="wallet-icon sol">◎</div>
+                    <div class="wallet-name">Solana</div>
                 </div>
             </div>
         </div>
@@ -317,45 +418,124 @@
         </footer>
     </div>
 
+    <!-- Wallet Modal -->
+    <div class="modal-overlay" id="walletModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWalletModal()">&times;</button>
+            <div class="modal-icon" id="modalIcon"></div>
+            <h3 class="modal-title" id="modalTitle">Bitcoin</h3>
+            <p style="color: var(--muted); font-size: 0.875rem;">Click para copiar la dirección</p>
+            <div class="modal-address" id="modalAddress" onclick="copyAddress()"></div>
+            <div class="modal-qr" id="modalQR"></div>
+            <button class="modal-copy-btn" onclick="copyAddress()">📋 Copiar Dirección</button>
+            <p class="copied-hint" id="copiedHint">✅ ¡Copiado!</p>
+        </div>
+    </div>
+
     <script>
-        // Datos estáticos iniciales - se actualizarán dinámicamente
-        
-        
-        
-        
-        
+        const walletData = {
+            btc: {
+                name: 'Bitcoin',
+                address: 'bc1quqmfq6h36c8lkj4tp2cqk3dpnh30m4e0j6ag0g',
+                icon: '₿',
+                gradient: 'linear-gradient(135deg, #f7931a, #ffb347)',
+                qr: 'qr/btc.png'
+            },
+            usdt: {
+                name: 'USDT (ERC20)',
+                address: '0x92CFf003A3134f2f0aad8b832075b99A85393b71',
+                icon: '₮',
+                gradient: 'linear-gradient(135deg, #26a17b, #48d5a0)',
+                qr: 'qr/usdt.png'
+            },
+            xrp: {
+                name: 'XRP',
+                address: 'r94ARpUZ3exkt9nbEKAFifo65gpChwQ5n7\nTag: 2287487128',
+                icon: '✕',
+                gradient: 'linear-gradient(135deg, #23292f, #5a6570)',
+                qr: 'qr/xrp.png'
+            },
+            sol: {
+                name: 'Solana',
+                address: 'EajtNpUknKr8VmBW8vw9pEdrzBTX8Sa39QMg5F6YS8aq',
+                icon: '◎',
+                gradient: 'linear-gradient(135deg, #9945ff, #14f195)',
+                qr: 'qr/sol.png'
+            }
+        };
+
+        let currentWallet = null;
+
+        function openWalletModal(currency) {
+            const data = walletData[currency];
+            currentWallet = currency;
+            
+            document.getElementById('modalIcon').textContent = data.icon;
+            document.getElementById('modalIcon').style.background = data.gradient;
+            document.getElementById('modalTitle').textContent = data.name;
+            document.getElementById('modalAddress').textContent = data.address;
+            document.getElementById('modalQR').innerHTML = '<img src="' + data.qr + '" alt="QR ' + data.name + '">';
+            document.getElementById('copiedHint').style.display = 'none';
+            
+            document.getElementById('walletModal').classList.add('active');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').classList.remove('active');
+            currentWallet = null;
+        }
+
+        function copyAddress() {
+            if (!currentWallet) return;
+            
+            const address = walletData[currentWallet].address;
+            navigator.clipboard.writeText(address).then(() => {
+                document.getElementById('copiedHint').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('copiedHint').style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Close modal on outside click
+        document.getElementById('walletModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWalletModal();
+            }
+        });
+
+        // Dashboard data
         const dashboardData = {
             totalRaisedUSD: 0,
             totalInvestors: 0,
-            lastUpdate: '2026-04-23T07:27:19.965Z'
+            lastUpdate: new Date().toISOString()
         };
 
         function updateDashboard() {
             document.getElementById('totalRaised').textContent = 
-                `$${dashboardData.totalRaisedUSD.toLocaleString()} USD`;
+                '$' + dashboardData.totalRaisedUSD.toLocaleString() + ' USD';
             document.getElementById('totalInvestors').textContent = 
                 dashboardData.totalInvestors;
             
-            // Progress bars
             const tokensPct = Math.min(100, (dashboardData.totalRaisedUSD / 50000) * 100);
             const robotsPct = Math.min(100, (dashboardData.totalRaisedUSD / 100000) * 100);
             
-            document.getElementById('tokensBar').style.width = `${tokensPct}%`;
+            document.getElementById('tokensBar').style.width = tokensPct + '%';
             document.getElementById('tokensProgress').textContent = 
-                `$${dashboardData.totalRaisedUSD.toLocaleString()} / 50,000 USD`;
+                '$' + dashboardData.totalRaisedUSD.toLocaleString() + ' / 50,000 USD';
             
-            document.getElementById('robotsBar').style.width = `${robotsPct}%`;
+            document.getElementById('robotsBar').style.width = robotsPct + '%';
             document.getElementById('robotsProgress').textContent = 
-                `$${dashboardData.totalRaisedUSD.toLocaleString()} / 100,000 USD`;
+                '$' + dashboardData.totalRaisedUSD.toLocaleString() + ' / 100,000 USD';
             
             document.getElementById('lastUpdate').textContent = 
                 new Date(dashboardData.lastUpdate).toLocaleString('es-ES');
+            
+            document.getElementById('nextMilestone').textContent = 
+                dashboardData.totalRaisedUSD >= 50000 ? 'Robots ($100k)' : 'Tokens ($50k)';
         }
 
-        // Actualizar al cargar
         updateDashboard();
-        
-        // Auto-refresh cada 5 minutos
         setInterval(updateDashboard, 300000);
     </script>
 </body>
