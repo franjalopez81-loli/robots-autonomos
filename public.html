@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robots Autónomos - Proyecto Open Source</title>
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #48bb78;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px;
+            margin-bottom: 3rem;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        
+        /* Progress */
+        .progress-section {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .progress-section h2 { margin-bottom: 1.5rem; text-align: center; }
+        .progress-item { margin-bottom: 1.5rem; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .progress-bar { background: #334155; border-radius: 8px; height: 16px; overflow: hidden; }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            border-radius: 8px;
+            transition: width 0.3s;
+        }
+        .progress-fill.green { background: linear-gradient(90deg, #48bb78, #38a169); }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--primary); }
+        .stat-label { color: var(--muted); text-transform: uppercase; font-size: 0.875rem; margin-top: 0.5rem; }
+        
+        /* Tiers */
+        .tiers-section { margin-bottom: 2rem; }
+        .tiers-section h2 { text-align: center; margin-bottom: 2rem; }
+        .tier-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+        .tier-card.partner { border-left-color: #f59e0b; }
+        .tier-card.cofounder { border-left-color: #ec4899; }
+        .tier-name { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .tier-range { color: var(--primary); font-weight: 600; margin-bottom: 1rem; }
+        .tier-benefits { list-style: none; }
+        .tier-benefits li { padding: 0.25rem 0; }
+        .tier-benefits li:before { content: "✓ "; color: var(--accent); }
+        
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--card);
+            border-radius: 16px;
+            margin-top: 2rem;
+        }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .btn-success { background: linear-gradient(135deg, #48bb78, #38a169); color: white; }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            margin-top: 2rem;
+        }
+        
+        /* Login hint */
+        .login-hint {
+            text-align: center;
+            padding: 1rem;
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+        .login-hint a { color: var(--primary); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Robots Autónomos</h1>
+            <p>Desarrollando robots físicos de código abierto, financiados colectivamente por la comunidad</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalRaised">$0</div>
+                <div class="stat-label">Recaudado</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="investors">0</div>
+                <div class="stat-label">Inversores</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="milestone">Tokens</div>
+                <div class="stat-label">Próximo</div>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+            <h2>🎯 Progreso hacia Milestones</h2>
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>Lanzamiento de Tokens</span>
+                    <span id="tokensText">$0 / $50,000</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="tokensBar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span>Robots Físicos</span>
+                    <span id="robotsText">$0 / $100,000</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" id="robotsBar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tiers -->
+        <div class="tiers-section">
+            <h2>Niveles de Inversión</h2>
+            
+            <div class="tier-card">
+                <div class="tier-name">Supporter</div>
+                <div class="tier-range">$0 - $99 USD</div>
+                <ul class="tier-benefits">
+                    <li>Nombre en lista de supporters</li>
+                    <li>Acceso a updates mensuales</li>
+                    <li>Reconocimiento público</li>
+                </ul>
+            </div>
+
+            <div class="tier-card">
+                <div class="tier-name">Backer</div>
+                <div class="tier-range">$100 - $499 USD</div>
+                <ul class="tier-benefits">
+                    <li>Todo lo de Supporter</li>
+                    <li>Early access a betas</li>
+                    <li>Descuento 10% en primeros robots</li>
+                    <li>Voto en decisiones menores</li>
+                </ul>
+            </div>
+
+            <div class="tier-card">
+                <div class="tier-name">Investor</div>
+                <div class="tier-range">$500 - $4,999 USD</div>
+                <ul class="tier-benefits">
+                    <li>Todo lo de Backer</li>
+                    <li>Revenue share 2%</li>
+                    <li>Tokens del proyecto</li>
+                    <li>Voto en decisiones medias</li>
+                    <li>Reportes trimestrales</li>
+                </ul>
+            </div>
+
+            <div class="tier-card partner">
+                <div class="tier-name">Partner</div>
+                <div class="tier-range">$5,000 - $24,999 USD</div>
+                <ul class="tier-benefits">
+                    <li>Todo lo de Investor</li>
+                    <li>Revenue share 5%</li>
+                    <li>Equity 0.5-1% (vesting 2 años)</li>
+                    <li>1 robot físico como hogar</li>
+                    <li>Reportes mensuales</li>
+                </ul>
+            </div>
+
+            <div class="tier-card cofounder">
+                <div class="tier-name">Co-Founder</div>
+                <div class="tier-range">$25,000+ USD</div>
+                <ul class="tier-benefits">
+                    <li>Todo lo de Partner</li>
+                    <li>Revenue share 10%</li>
+                    <li>Equity 2-5% (negociable)</li>
+                    <li>Board observer seat</li>
+                    <li>Naming rights para primeros robots</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>¿Listo para ser parte del futuro?</h2>
+            <p style="color: var(--muted); margin-top: 0.5rem;">Únete a los primeros inversores del proyecto</p>
+            <div class="cta-buttons">
+                <a href="mailto:franjalopez81@gmail.com?subject=Quiero%20invertir%20-%20Robots%20Autónomos" class="btn btn-success">
+                    💰 Empezar a Invertir
+                </a>
+                <a href="mailto:franjalopez81@gmail.com?subject=Consulta%20-%20Robots%20Autónomos" class="btn btn-outline">
+                    ❓ Preguntas
+                </a>
+            </div>
+        </div>
+
+        <!-- Login hint -->
+        <div class="login-hint">
+            ¿Ya eres inversor? <a href="index.html">Accede al dashboard privado</a>
+        </div>
+
+        <footer>
+            <p>Proyecto Robots Autónomos • Open Source</p>
+            <p style="margin-top: 0.5rem;">Inversión temprana • Revenue Share • Comunidad</p>
+        </footer>
+    </div>
+
+    <script>
+        // Datos estáticos - se actualizarían desde un JSON
+        const data = {
+            totalRaisedUSD: 0,
+            totalInvestors: 0
+        };
+
+        function updatePage() {
+            document.getElementById('totalRaised').textContent = '$' + data.totalRaisedUSD.toLocaleString();
+            document.getElementById('investors').textContent = data.totalInvestors;
+            
+            const tokensPct = Math.min(100, (data.totalRaisedUSD / 50000) * 100);
+            const robotsPct = Math.min(100, (data.totalRaisedUSD / 100000) * 100);
+            
+            document.getElementById('tokensBar').style.width = tokensPct + '%';
+            document.getElementById('tokensText').textContent = '$' + data.totalRaisedUSD.toLocaleString() + ' / $50,000';
+            
+            document.getElementById('robotsBar').style.width = robotsPct + '%';
+            document.getElementById('robotsText').textContent = '$' + data.totalRaisedUSD.toLocaleString() + ' / $100,000';
+            
+            document.getElementById('milestone').textContent = data.totalRaisedUSD >= 50000 ? 'Robots' : 'Tokens';
+        }
+
+        updatePage();
+    </script>
+</body>
+</html>

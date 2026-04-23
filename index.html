@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robots Autónomos - Dashboard Inversores</title>
+    <script>
+        // Proteger dashboard - redirect si no autenticado
+        if (sessionStorage.getItem('authenticated') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
     <style>
         :root {
             --primary: #2563eb;
