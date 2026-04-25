@@ -255,6 +255,28 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
         }
+        .credibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .mini-label {
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-bottom: 0.45rem;
+        }
+        .mini-value {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .mini-copy {
+            margin-top: 0.45rem;
+            color: #c7d2fe;
+            font-size: 0.9rem;
+        }
         .section { margin: 0 0 2rem; }
         .card {
             background: var(--card);
@@ -415,14 +437,14 @@
         <section class="hero">
             <div class="hero-box">
                 <div class="hero-copy">
-                    <div class="eyebrow">Desarrollo de robótica física open source</div>
-                    <h1>Plataforma de robótica autónoma con modelo de financiación colectiva</h1>
+                    <div class="eyebrow">Infraestructura robótica, ejecución técnica y capital privado</div>
+                    <h1>Proyecto de robótica autónoma con enfoque serio de producto, operación y financiación</h1>
                     <p id="projectTagline" class="loading">Cargando información del proyecto...</p>
                     <div class="hero-actions">
                         <a class="btn btn-primary" href="#niveles">Ver niveles de inversión</a>
                         <a class="btn btn-outline" href="mailto:franjalopez81@gmail.com?subject=Solicitud%20de%20informacion%20-%20Robots%20Autonomos">Solicitar información</a>
                     </div>
-                    <div class="hero-note">Vista pública informativa. El área privada ofrece seguimiento operativo y datos de aportación para inversores.</div>
+                    <div class="hero-note">Documento público de proyecto. El área privada queda reservada para inversores confirmados, seguimiento operativo y estructura de aportación.</div>
                 </div>
                 <div class="hero-visual missing" id="lolibotHero">
                     <div class="hero-visual-glow"></div>
@@ -453,6 +475,26 @@
             </div>
         </section>
 
+        <section class="section">
+            <div class="credibility-grid">
+                <article class="card">
+                    <div class="mini-label">Modelo</div>
+                    <div class="mini-value">Robótica física + financiación colectiva</div>
+                    <p class="mini-copy">Estructura orientada a producto real, despliegue gradual y seguimiento transparente.</p>
+                </article>
+                <article class="card">
+                    <div class="mini-label">Enfoque</div>
+                    <div class="mini-value">Open source con disciplina operativa</div>
+                    <p class="mini-copy">Prioridad en ejecución técnica, trazabilidad del capital y evolución medible del proyecto.</p>
+                </article>
+                <article class="card">
+                    <div class="mini-label">Acceso</div>
+                    <div class="mini-value">Panel privado solo para inversores</div>
+                    <p class="mini-copy">El acceso completo se habilita tras validación de aportación y registro en el proyecto.</p>
+                </article>
+            </div>
+        </section>
+
         <section class="section card progress-card" id="progreso">
             <h2 class="section-title">Progreso de financiación</h2>
             <p class="section-copy">Seguimiento general para entender dónde está el proyecto y qué desbloquea cada fase.</p>
@@ -479,25 +521,25 @@
         </section>
 
         <section class="section card cta">
-            <h2 class="section-title">¿Interesado en participar?</h2>
-            <p>Solicita información detallada del proyecto. Los inversores confirmados reciben acceso al panel privado con métricas en tiempo real y carteras de aportación.</p>
+            <h2 class="section-title">Proceso de incorporación</h2>
+            <p>Si te interesa evaluar el proyecto con criterio, puedes solicitar información ampliada o iniciar el proceso de incorporación como inversor. El acceso completo queda reservado a perfiles confirmados.</p>
             
             <div style="margin-top:2rem;text-align:left;background:rgba(15,23,42,0.72);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:1.5rem;">
-                <h3 style="color:#c4b5fd;margin-bottom:0.75rem;font-size:1.15rem;">Cómo convertirse en inversor</h3>
+                <h3 style="color:#c4b5fd;margin-bottom:0.75rem;font-size:1.15rem;">Cómo acceder como inversor</h3>
                 <p style="color:#dbeafe;margin-bottom:1rem;font-size:0.92rem;">Para acceder al panel de inversores es necesario realizar una aportación de capital mínima. Este proyecto se financia mediante contribuciones que permiten el desarrollo de robótica física open source.</p>
                 
                 <div style="display:grid;gap:1rem;margin-top:1.25rem;">
                     <div style="background:rgba(2,6,23,0.55);border-radius:14px;padding:1rem;">
-                        <strong style="color:#93c5fd;display:block;margin-bottom:0.35rem;font-size:0.92rem;">1. Aportación de capital</strong>
-                        <p style="color:#94a3b8;font-size:0.87rem;">Realiza una contribución mínima en criptoactivos (SOL, USDC, BTC, ETH, XRP). No hay un mínimo estricto, pero se recomienda consultar los niveles de inversión.</p>
+                        <strong style="color:#93c5fd;display:block;margin-bottom:0.35rem;font-size:0.92rem;">1. Evaluación inicial</strong>
+                        <p style="color:#94a3b8;font-size:0.87rem;">Revisa el proyecto, sus hitos de financiación y la estructura de participación. Esta página pública sirve como base de evaluación inicial.</p>
                     </div>
                     <div style="background:rgba(2,6,23,0.55);border-radius:14px;padding:1rem;">
-                        <strong style="color:#93c5fd;display:block;margin-bottom:0.35rem;font-size:0.92rem;">2. Registro como inversor</strong>
-                        <p style="color:#94a3b8;font-size:0.87rem;">Envía un correo con el comprobante de tu aportación. Recibirás las credenciales de acceso al panel privado.</p>
+                        <strong style="color:#93c5fd;display:block;margin-bottom:0.35rem;font-size:0.92rem;">2. Aportación y validación</strong>
+                        <p style="color:#94a3b8;font-size:0.87rem;">La entrada al panel privado requiere aportación de capital y validación manual. No es un acceso abierto ni promocional.</p>
                     </div>
                     <div style="background:rgba(2,6,23,0.55);border-radius:14px;padding:1rem;">
-                        <strong style="color:#93c5fd;display:block;margin-bottom:0.35rem;font-size:0.92rem;">3. Acceso al dashboard</strong>
-                        <p style="color:#94a3b8;font-size:0.87rem;">Una vez registrado, podrás acceder al panel de inversores con métricas en tiempo real, estructura de participación y carteras de aportación.</p>
+                        <strong style="color:#93c5fd;display:block;margin-bottom:0.35rem;font-size:0.92rem;">3. Seguimiento privado</strong>
+                        <p style="color:#94a3b8;font-size:0.87rem;">Tras la confirmación, se habilita acceso al dashboard privado con métricas, estructura de participación y seguimiento operativo.</p>
                     </div>
                 </div>
                 
@@ -521,8 +563,8 @@
     </main>
 
     <footer class="footer container">
-        <p><strong>Robots Autónomos</strong> — Plataforma de desarrollo de robótica física open source.</p>
-        <p style="margin-top:0.35rem;">Acceso privado disponible para inversores confirmados.</p>
+        <p><strong>Robots Autónomos</strong> — Proyecto de robótica física open source con enfoque de ejecución, transparencia y financiación estructurada.</p>
+        <p style="margin-top:0.35rem;">Acceso privado disponible exclusivamente para inversores confirmados.</p>
     </footer>
 
     <script>
