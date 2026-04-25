@@ -1,9 +1,9 @@
 {
   "project": {
     "name": "Robots Autónomos",
-    "tagline": "Plataforma de desarrollo de robótica física con enfoque open source",
+    "tagline": "Desarrollo de plataforma de robótica física con arquitectura open source y modelo de financiación colectiva",
     "version": "1.0.0",
-    "lastUpdated": "2026-04-23T14:30:00Z"
+    "lastUpdated": "2026-04-24T13:00:00Z"
   },
   "funding": {
     "totalRaisedUSD": 12032,

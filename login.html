@@ -176,47 +176,59 @@
                     <div class="brand-mark"><img src="assets/lolibot-brandmark.png" alt="Lolibot"></div>
                     <div>
                         <strong>Robots Autónomos</strong><br>
-                        <span style="color:var(--muted); font-size:0.9rem;">Acceso reservado para inversores</span>
+                        <span style="color:var(--muted); font-size:0.9rem;">Área privada para inversores</span>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="eyebrow">Entorno privado</div>
-                <h1>Entra al panel operativo</h1>
-                <p class="lead">Esta vista separa claramente al visitante del inversor. Aquí el foco pasa de presentación a seguimiento real.</p>
+                <div class="eyebrow">Acceso restringido</div>
+                <h1>Panel de inversores</h1>
+                <p class="lead">Entorno privado con métricas de financiación, estructura de participación y carteras de aportación.</p>
             </div>
             <ul class="bullet-list">
-                <li>Métricas de financiación</li>
-                <li>Estructura de participación</li>
-                <li>Carteras de aportación y QR</li>
+                <li>Seguimiento de financiación en tiempo real</li>
+                <li>Estructura completa de niveles de inversión</li>
+                <li>Carteras de aportación con QR</li>
             </ul>
         </section>
 
         <section class="form-panel">
             <div class="card">
-                <h2>Acceso privado</h2>
-                <p class="subtitle">Introduce tu clave para entrar al dashboard de inversores.</p>
-                <div class="error" id="error">Clave de acceso no válida.</div>
+                <h2>Autenticación</h2>
+                <p class="subtitle">Acceso exclusivo para inversores. Requiere aportación de capital mínima.</p>
+                <div class="error" id="error">Clave de acceso incorrecta.</div>
+                <div class="investor-notice" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.28);padding:1rem 1.1rem;border-radius:14px;margin-bottom:1.2rem;">
+                    <strong style="color:#93c5fd;display:block;margin-bottom:0.4rem;font-size:0.95rem;">Acceso exclusivo para inversores</strong>
+                    <p style="color:#dbeafe;font-size:0.88rem;margin-bottom:0.5rem;">Este panel requiere una aportación de capital mínima para acceder.</p>
+                    <p style="color:#94a3b8;font-size:0.85rem;">Si eres inversor registrado, introduce tus credenciales a continuación.</p>
+                </div>
                 <form id="loginForm">
                     <div class="input-group">
                         <label for="password">Clave de acceso</label>
-                        <input type="password" id="password" placeholder="Introduce tu clave" autocomplete="current-password" autofocus>
+                        <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password" autofocus>
                     </div>
-                    <button class="submit-btn" type="submit">Entrar al área privada</button>
+                    <button class="submit-btn" type="submit">Acceder</button>
                 </form>
                 <div class="links">
                     <a href="public.html">← Volver a la página pública</a>
-                    <a href="mailto:franjalopez81@gmail.com?subject=Consulta%20-%20Robots%20Autonomos">Necesito ayuda de acceso</a>
+                    <a href="mailto:franjalopez81@gmail.com?subject=Soporte%20-%20Acceso%20Inversores">¿Problemas de acceso?</a>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
-        const PASSWORD = 'robots2026';
+        // Configuración de autenticación
+        // NOTA: Para producción, implementar autenticación en backend.
+        // Esta configuración básica es solo para despliegue local/demo.
+        const AUTH_CONFIG = {
+            password: 'robots2026',
+            sessionKey: 'robots_auth',
+            redirectUrl: 'index.html'
+        };
 
-        if (sessionStorage.getItem('authenticated') === 'true') {
-            window.location.href = 'index.html';
+        if (sessionStorage.getItem(AUTH_CONFIG.sessionKey) === 'true') {
+            window.location.href = AUTH_CONFIG.redirectUrl;
         }
 
         document.getElementById('loginForm').addEventListener('submit', function (e) {
@@ -224,11 +236,14 @@
             const password = document.getElementById('password').value;
             const error = document.getElementById('error');
 
-            if (password === PASSWORD) {
-                sessionStorage.setItem('authenticated', 'true');
-                window.location.href = 'index.html';
+            if (password === AUTH_CONFIG.password) {
+                sessionStorage.setItem(AUTH_CONFIG.sessionKey, 'true');
+                window.location.href = AUTH_CONFIG.redirectUrl;
             } else {
                 error.style.display = 'block';
+                // Limpiar campo por seguridad
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
             }
         });
     </script>
