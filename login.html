@@ -223,11 +223,16 @@
         // Esta configuración básica es solo para despliegue local/demo.
         const AUTH_CONFIG = {
             password: 'robots2026',
-            sessionKey: 'robots_auth',
+            sessionKey: 'authenticated',
+            legacySessionKey: 'robots_auth',
             redirectUrl: 'index.html'
         };
 
-        if (sessionStorage.getItem(AUTH_CONFIG.sessionKey) === 'true') {
+        if (
+            sessionStorage.getItem(AUTH_CONFIG.sessionKey) === 'true' ||
+            sessionStorage.getItem(AUTH_CONFIG.legacySessionKey) === 'true'
+        ) {
+            sessionStorage.setItem(AUTH_CONFIG.sessionKey, 'true');
             window.location.href = AUTH_CONFIG.redirectUrl;
         }
 
@@ -238,6 +243,7 @@
 
             if (password === AUTH_CONFIG.password) {
                 sessionStorage.setItem(AUTH_CONFIG.sessionKey, 'true');
+                sessionStorage.setItem(AUTH_CONFIG.legacySessionKey, 'true');
                 window.location.href = AUTH_CONFIG.redirectUrl;
             } else {
                 error.style.display = 'block';
